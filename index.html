@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رسالة خاصة ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    font-family:Tahoma,sans-serif;
+    overflow:hidden;
+}
+
+.card{
+    background:rgba(255,255,255,.9);
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    width:90%;
+    max-width:600px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    z-index:2;
+}
+
+h1{
+    color:#e91e63;
+    margin-bottom:20px;
+}
+
+p{
+    font-size:20px;
+    margin-bottom:20px;
+    line-height:1.8;
+}
+
+button{
+    border:none;
+    padding:12px 25px;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:18px;
+    background:#e91e63;
+    color:white;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.heart{
+    position:absolute;
+    font-size:25px;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-120px);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>❤️ أهلاً ❤️</h1>
+
+    <p id="message">
+        أتمنى لكِ يومًا مليئًا بالسعادة والنجاح.
+    </p>
+
+    <button onclick="changeMessage()">
+        اضغطي هنا
+    </button>
+</div>
+
+<script>
+
+const messages = [
+"أنتِ شخص مميز جدًا 🌷",
+"أتمنى لكِ كل التوفيق والنجاح ✨",
+"وجود الأشخاص الطيبين يجعل الحياة أجمل ❤️",
+"ابتسامتك تستحق أن تبقى دائمًا 😊",
+"أتمنى أن تحققي كل أحلامك 🌹"
+];
+
+function changeMessage(){
+    const random =
+    messages[Math.floor(Math.random()*messages.length)];
+
+    document.getElementById("message").innerText = random;
+}
+
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="❤️";
+
+    heart.style.left=Math.random()*100+"vw";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },6000);
+}
+
+setInterval(createHeart,400);
+
+</script>
+
+</body>
+</html>
