@@ -97,9 +97,9 @@ function initStory(pageId) {
             const a = shots[n].getBoundingClientRect();
             const b = shots[n + 1].getBoundingClientRect();
 
-            const x1 = isMobile ? a.right - ir.left + 4 : a.left + a.width / 2 - ir.left;
+            const x1 = a.left + a.width / 2 - ir.left;
             const y1 = a.bottom - ir.top + 6;
-            const x2 = isMobile ? b.right - ir.left + 4 : b.left + b.width / 2 - ir.left;
+            const x2 = b.left + b.width / 2 - ir.left;
             const y2 = b.top - ir.top - 10;
             const dy = y2 - y1;
 
