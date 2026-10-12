@@ -26,7 +26,7 @@
 
             <div class="tiny-text">SOMETHING SPECIAL</div>
 
-            <h1 class="intro-title">𝐌𝐀𝐑𝐈𝐎𝐎𝐎𝐌𝐌𝐀 ♡</h1>
+            <h1 class="intro-title" dir="ltr">𝐌𝐀𝐑𝐈𝐎𝐎𝐎𝐌𝐌𝐀 ♡</h1>
 
             <p class="intro-message">
                 مفاجأة مش كده ؟
@@ -314,8 +314,8 @@
 
             <p class="sub-title">ملحقتش أقول حاجة حتى بعتت نقطتين واتظرفت بلوك... بس مش مشكلة، عادي بتحصل في أكبر العائلات</p>
 
-            <p class="note">ده رقمي، لو حابة نتعرف... بس متقوليش لإسراء</p>
             <p class="phone">01092567548</p>
+            <p class="note">ده رقمي، لو حابة نتعرف... بس متقوليش لإسراء</p>
             <img class="shot photo-mid" data-s="5" alt="">
 
             <button class="start-btn" onclick="goTo('page-story4')">إلا كرامتي ما أخليها</button>
@@ -422,8 +422,6 @@
                 <p class="note">طب إنت ليه مصمم كده؟ أولاً إنتو مالكو 😆</p>
                 <p class="note">بعدين ده عشان مفيش أحلى ولا أجمل ولا أطيب ولا في حد أحسن من مريومتي</p>
                 <p class="love-big">بحبك 🫶🏻</p>
-                <img class="choose-img" data-n="choose" alt="I will always choose you">
-
                 <div class="soon-row">
                     <button class="start-btn" disabled>كمّل</button>
                     <span class="hint-text">متستعجلوش 😌</span>
@@ -505,7 +503,7 @@
                         <div class="book-wrap">
                             <img class="shot" data-n="book3" alt="">
                             <a class="song-pill" href="https://youtu.be/hnbALhWMLJI?si=UXDU4OXdbBG-UzR0" target="_blank" rel="noopener"
-                                onclick="document.getElementById('loveMusic').pause()">🎧 اضغط هنا عشان تسمع الأغنية المفضلة بتاعتنا</a>
+                                onclick="document.getElementById('loveMusic').pause()">اضغطي هنا</a>
                         </div>
                     </div>
                     <div class="side"></div>
@@ -522,7 +520,7 @@
 
                 <article class="story-row left">
                     <div class="media">
-                        <img class="shot" data-n="book5" alt="">
+                        <img class="shot book5-shot" data-n="book5" alt="">
                     </div>
                     <div class="side">
                         <p class="note">طبعا بلا اكتوبر بلا بتاع بقى لان مش اكتوبر هو اللي هيخليني اختارك يا مريومتي 🫶🏻</p>
@@ -539,6 +537,7 @@
     <section class="heart-scene" id="heartScene">
         <canvas id="heartCanvas"></canvas>
         <div class="heart-center" id="heartCenter">Love You</div>
+        <button class="music-retry" id="musicRetry" type="button" hidden onclick="retryHeartMusic()">شغّلي الصوت 🎵</button>
 
         <div class="last-wrap" id="lastWrap">
             <button class="start-btn" onclick="goFinal()">اخر حاجة ←</button>

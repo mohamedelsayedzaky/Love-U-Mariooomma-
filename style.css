@@ -72,15 +72,15 @@ body {
 
     white-space: nowrap;
 
-    color: rgba(245, 182, 210, 0.28);
+    color: rgba(245, 182, 210, 0.5);
 
     font-weight: 600;
 
     user-select: none;
 
     text-shadow:
-        0 0 12px rgba(245, 182, 210, 0.20),
-        0 0 30px rgba(245, 182, 210, 0.10);
+        0 0 12px rgba(245, 182, 210, 0.36),
+        0 0 30px rgba(245, 182, 210, 0.18);
 
     pointer-events: none;
 
@@ -107,11 +107,11 @@ body {
             )
             rotate(var(--rotation));
 
-        opacity: 0.18;
+        opacity: 0.38;
     }
 
     50% {
-        opacity: 0.38;
+        opacity: 0.72;
     }
 
     100% {
@@ -123,7 +123,7 @@ body {
             )
             rotate(var(--rotation));
 
-        opacity: 0.18;
+        opacity: 0.38;
     }
 }
 
@@ -655,9 +655,10 @@ body {
 
     .floating-name {
 
-        font-size: 16px !important;
-
-        color:
-            rgba(245, 182, 210, 0.13);
+        font-size: clamp(15px, 4.4vw, 21px) !important;
+        color: rgba(245, 182, 210, 0.58);
+        text-shadow:
+            0 0 12px rgba(245, 182, 210, 0.45),
+            0 0 28px rgba(245, 182, 210, 0.24);
     }
 }

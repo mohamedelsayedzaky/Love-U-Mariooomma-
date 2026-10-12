@@ -188,10 +188,6 @@
 
 @media (max-width: 700px) {
 
-    .arrows-svg {
-        display: none;
-    }
-
     .bio {
         width: 100%;
     }
@@ -221,12 +217,6 @@
         text-align: center;
     }
 
-    .story-row:not(:last-of-type)::after {
-        content: "⤵";
-        color: #f5b6d2;
-        font-size: 32px;
-        margin-top: 10px;
-    }
 }
 
 /* الاستيكرات اللي ليها خلفية (كلها ما عدا رقم 2) */
@@ -549,6 +539,37 @@
     font-size: 18px;
     opacity: 0;
     transition: opacity .35s ease;
+}
+
+@media (max-width: 700px) {
+    .arrow-path,
+    .arrow-head {
+        stroke-width: 2.2;
+    }
+
+    .arrow-heart {
+        font-size: 15px;
+    }
+}
+
+.book5-shot {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.music-retry {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    z-index: 5;
+    padding: 12px 20px;
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: 999px;
+    background: rgba(30, 80, 150, .85);
+    color: #fff;
+    font: inherit;
 }
 
 /* ===== الظرف: من غير إطار وبحواف ناعمة ===== */

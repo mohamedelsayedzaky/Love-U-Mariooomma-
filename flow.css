@@ -183,5 +183,7 @@ body {
     .intro-title {
         font-size: 34px;
         letter-spacing: 2px;
+        direction: ltr;
+        unicode-bidi: isolate;
     }
 }

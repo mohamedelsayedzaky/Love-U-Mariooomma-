@@ -1091,27 +1091,9 @@ function showHeart() {
        تشغيل الموسيقى
     */
 
-    loveMusic.currentTime = 0;
-
-
-    loveMusic.play()
-
-        .then(() => {
-
-            console.log(
-                "Music started"
-            );
-
-        })
-
-        .catch((error) => {
-
-            console.error(
-                "Music error:",
-                error
-            );
-
-        });
+    if (loveMusic.paused) {
+        startHeartMusic();
+    }
 
 
     /*

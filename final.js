@@ -82,6 +82,9 @@ function answerGuess() {
 
     disableButtons("guessBox");
 
+    // Start audio during the user's tap so mobile browsers allow playback.
+    startHeartMusic(true);
+
     showBlock("img18Box");
 
     let n = 5;
@@ -119,6 +122,30 @@ function goFinal() {
     document.getElementById("heartScene").classList.remove("show");
 
     goTo("page-final");
+}
+
+function startHeartMusic(restart = false) {
+    if (!loveMusic) return;
+
+    if (restart) loveMusic.currentTime = 0;
+
+    const retryButton = document.getElementById("musicRetry");
+    const playback = loveMusic.play();
+
+    if (playback && typeof playback.then === "function") {
+        playback
+            .then(() => {
+                if (retryButton) retryButton.hidden = true;
+            })
+            .catch((error) => {
+                console.warn("Music playback needs a tap:", error);
+                if (retryButton) retryButton.hidden = false;
+            });
+    }
+}
+
+function retryHeartMusic() {
+    startHeartMusic(true);
 }
 
 

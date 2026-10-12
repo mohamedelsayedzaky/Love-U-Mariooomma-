@@ -82,8 +82,6 @@ function initStory(pageId) {
         svg.innerHTML = "";
         arrows = [];
 
-        if (window.innerWidth <= 700) return;
-
         const ir = inner.getBoundingClientRect();
 
         svg.setAttribute("width", ir.width);
@@ -92,21 +90,22 @@ function initStory(pageId) {
 
         const shots = [...inner.querySelectorAll(".story-row .shot:not(.no-arrow)")]
             .filter(s => s.getClientRects().length > 0);
+        const isMobile = window.matchMedia("(max-width: 700px)").matches;
 
         for (let n = 0; n < shots.length - 1; n++) {
 
             const a = shots[n].getBoundingClientRect();
             const b = shots[n + 1].getBoundingClientRect();
 
-            const x1 = a.left + a.width / 2 - ir.left;
+            const x1 = isMobile ? a.right - ir.left + 4 : a.left + a.width / 2 - ir.left;
             const y1 = a.bottom - ir.top + 6;
-            const x2 = b.left + b.width / 2 - ir.left;
+            const x2 = isMobile ? b.right - ir.left + 4 : b.left + b.width / 2 - ir.left;
             const y2 = b.top - ir.top - 10;
             const dy = y2 - y1;
 
-            const d =
-                `M${x1},${y1} ` +
-                `C${x1},${y1 + dy * 0.7} ${x2},${y2 - dy * 0.7} ${x2},${y2}`;
+            const d = isMobile
+                ? `M${x1},${y1} C${Math.min(ir.width - 8, Math.max(x1, x2) + 24)},${y1 + dy * 0.3} ${Math.min(ir.width - 8, Math.max(x1, x2) + 24)},${y2 - dy * 0.3} ${x2},${y2}`
+                : `M${x1},${y1} C${x1},${y1 + dy * 0.7} ${x2},${y2 - dy * 0.7} ${x2},${y2}`;
 
             const path = svgEl("path", { d: d, class: "arrow-path" });
             const head = svgEl("path", { d: "M-9,-8 L3,0 L-9,8", class: "arrow-head" });
