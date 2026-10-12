@@ -1,0 +1,663 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+
+    font-family: Arial, Tahoma, sans-serif;
+
+    background: #050510;
+    color: white;
+}
+
+
+/* =========================
+   شاشة البداية
+========================= */
+
+.intro {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #17152d 0%,
+            #090817 45%,
+            #030308 100%
+        );
+
+    z-index: 100;
+
+    transition:
+        opacity 1.2s ease,
+        visibility 1.2s ease;
+
+    overflow: hidden;
+}
+
+.intro.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+/* =========================
+   الأسماء العائمة
+========================= */
+
+/* =========================
+   الأسماء العائمة
+========================= */
+
+.floating-names {
+    position: absolute;
+    inset: -20%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.floating-name {
+    position: absolute;
+
+    white-space: nowrap;
+
+    color: rgba(245, 182, 210, 0.28);
+
+    font-weight: 600;
+
+    user-select: none;
+
+    text-shadow:
+        0 0 12px rgba(245, 182, 210, 0.20),
+        0 0 30px rgba(245, 182, 210, 0.10);
+
+    pointer-events: none;
+
+    will-change: transform, opacity;
+
+    animation:
+        nameFloat
+        var(--duration)
+        ease-in-out
+        infinite alternate;
+}
+
+
+/* حركة طويلة وناعمة */
+
+@keyframes nameFloat {
+
+    0% {
+        transform:
+            translate3d(
+                var(--x1),
+                var(--y1),
+                0
+            )
+            rotate(var(--rotation));
+
+        opacity: 0.18;
+    }
+
+    50% {
+        opacity: 0.38;
+    }
+
+    100% {
+        transform:
+            translate3d(
+                var(--x2),
+                var(--y2),
+                0
+            )
+            rotate(var(--rotation));
+
+        opacity: 0.18;
+    }
+}
+
+/* =========================
+   النجوم
+========================= */
+
+.stars {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+
+    width: 2px;
+    height: 2px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    animation:
+        twinkle
+        2s
+        infinite
+        alternate;
+}
+
+@keyframes twinkle {
+
+    from {
+        opacity: .15;
+
+        transform:
+            scale(.7);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1.5);
+    }
+}
+
+
+/* =========================
+   محتوى شاشة البداية
+========================= */
+
+.intro-content {
+    position: relative;
+
+    z-index: 5;
+
+    text-align: center;
+
+    width: 90%;
+    max-width: 650px;
+
+    animation:
+        entrance
+        1.5s
+        ease;
+}
+
+@keyframes entrance {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================
+   النص الصغير
+========================= */
+
+.tiny-text {
+
+    font-size: 14px;
+
+    letter-spacing: 4px;
+
+    color: #aaa8bd;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   العنوان
+========================= */
+
+.intro-title {
+
+    font-size:
+        clamp(42px, 9vw, 80px);
+
+    font-weight: 300;
+
+    letter-spacing: 6px;
+
+    margin-bottom: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #f5b6d2,
+            #ffffff
+        );
+
+    background-size: 200%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    animation:
+        gradientMove
+        4s
+        infinite
+        alternate;
+}
+
+@keyframes gradientMove {
+
+    from {
+        background-position:
+            0%;
+    }
+
+    to {
+        background-position:
+            100%;
+    }
+}
+
+
+/* =========================
+   الرسالة
+========================= */
+
+.intro-message {
+
+    color: #aaa8bd;
+
+    font-size: 18px;
+
+    line-height: 2;
+
+    margin-bottom: 35px;
+}
+
+
+/* =========================
+   زر ابدئي
+========================= */
+
+.start-btn {
+
+    position: relative;
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: white;
+
+    padding:
+        15px 35px;
+
+    border-radius: 50px;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    backdrop-filter:
+        blur(10px);
+
+    transition: .4s;
+
+    overflow: hidden;
+}
+
+.start-btn::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.2),
+            transparent
+        );
+
+    transform:
+        translateX(-100%);
+
+    transition: .6s;
+}
+
+.start-btn:hover::before {
+
+    transform:
+        translateX(100%);
+}
+
+.start-btn:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(255,255,255,.5);
+
+    box-shadow:
+        0 10px 40px
+        rgba(255,150,200,.15);
+}
+
+
+/* =========================
+   الصفحة الرئيسية
+========================= */
+
+.main {
+
+    height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    opacity: 0;
+
+    transform:
+        scale(1.05);
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #15132a,
+            #050510 70%
+        );
+}
+
+.main.show {
+
+    opacity: 1;
+
+    transform:
+        scale(1);
+}
+
+
+.main-content {
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+
+.mini-heart {
+
+    font-size: 45px;
+
+    margin-bottom: 20px;
+
+    color: #f5b6d2;
+}
+
+
+.main h2 {
+
+    font-size:
+        clamp(35px, 8vw, 70px);
+
+    font-weight: 300;
+
+    margin-bottom: 20px;
+
+    min-height: 90px;
+}
+
+
+.main p {
+
+    color: #aaa8bd;
+
+    font-size: 18px;
+
+    line-height: 2;
+
+    min-height: 60px;
+}
+
+
+/* =========================
+   زر كملي
+========================= */
+
+.continue-btn {
+
+    margin-top: 25px;
+
+    padding:
+        13px 30px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    border-radius: 50px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: white;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: .5s;
+}
+
+.continue-btn.visible {
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+.continue-btn:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(255,150,200,.15);
+}
+
+
+/* =========================
+   مشهد القلب
+========================= */
+
+.heart-scene {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: #000;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+
+    z-index: 500;
+}
+
+.heart-scene.show {
+
+    opacity: 1;
+
+    visibility: visible;
+}
+
+
+#heartCanvas {
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+.heart-center {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.85);
+
+    color:
+        rgb(255, 250, 245);
+
+    font-family:
+        Georgia, serif;
+
+    font-size:
+        clamp(38px, 4vw, 54px);
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    text-shadow:
+        0 0 8px
+        rgba(255,255,255,.35),
+
+        0 0 20px
+        rgba(80,150,255,.45),
+
+        0 0 45px
+        rgba(30,144,255,.25);
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s ease;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+.heart-scene.center-show
+.heart-center {
+
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+
+    animation:
+        centerPulse
+        2s
+        ease-in-out
+        infinite;
+}
+
+@keyframes centerPulse {
+
+    0%,
+    100% {
+
+        filter:
+            brightness(1);
+    }
+
+    50% {
+
+        filter:
+            brightness(1.18);
+    }
+}
+
+
+/* =========================
+   الموبايل
+========================= */
+
+@media (max-width: 500px) {
+
+    .intro-title {
+
+        font-size: 48px;
+    }
+
+    .intro-message {
+
+        font-size: 16px;
+    }
+
+    .main h2 {
+
+        font-size: 35px;
+    }
+
+    .main p {
+
+        font-size: 16px;
+    }
+
+    .floating-name {
+
+        font-size: 16px !important;
+
+        color:
+            rgba(245, 182, 210, 0.13);
+    }
+}

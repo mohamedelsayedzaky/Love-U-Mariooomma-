@@ -1,0 +1,606 @@
+/* ===== صفحات القصة ===== */
+
+.page.story {
+    justify-content: flex-start;
+    align-items: stretch;
+    text-align: right;
+    padding: 30px 20px 60px;
+}
+
+.story-inner {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.arrows-svg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+}
+
+.arrow-path,
+.arrow-head {
+    fill: none;
+    stroke: #f5b6d2;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.arrow-head {
+    opacity: 0;
+}
+
+.story-head {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 10px 0 40px;
+}
+
+.story-head .glow-title {
+    margin: 0;
+}
+
+.sticker {
+    display: block;
+}
+
+.sticker.head {
+    width: clamp(50px, 9vw, 80px);
+}
+
+/* ===== مستطيل التعريف ===== */
+
+.bio {
+    position: relative;
+    z-index: 1;
+    width: calc(50% - 20px);
+    margin: 0 auto 30px 0;
+}
+
+.bio-box {
+    border: 1px solid rgba(245, 182, 210, .5);
+    background: rgba(255, 255, 255, .06);
+    border-radius: 18px;
+    padding: 16px 18px;
+    line-height: 1.9;
+    font-size: clamp(14px, 2.4vw, 17px);
+    color: #e7e4f5;
+}
+
+.sticker-bio {
+    margin-bottom: 0;
+}
+
+/* سهم منحني طالع من الاستيكر لمستطيل التعريف */
+.bio-arrow {
+    display: block;
+    width: 56px;
+    height: 84px;
+    margin: 4px 0 0 60px;
+    overflow: visible;
+    fill: none;
+    stroke: #f5b6d2;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ===== صف الصورة والنص ===== */
+
+.story-row {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    direction: ltr;
+    margin-bottom: clamp(70px, 12vh, 120px);
+}
+
+.story-row.right {
+    flex-direction: row-reverse;
+}
+
+.story-row .media {
+    flex: 0 0 46%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.story-row .side {
+    flex: 1;
+    direction: rtl;
+    text-align: right;
+}
+
+.shot {
+    max-width: 100%;
+    max-height: 70vh;
+    width: auto;
+    height: auto;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
+}
+
+/* الاستيكر ورا الصورة، وطالع من فوقها بميل 25 درجة */
+.st-corner {
+    position: absolute;
+    top: calc(var(--w) * -1.15);
+    left: 2%;
+    width: var(--w);
+    transform: rotate(-25deg);
+    z-index: 0;
+}
+
+.shot {
+    position: relative;
+    z-index: 1;
+}
+
+.story-row.has-sticker {
+    --w: clamp(90px, 13vw, 130px);
+    margin-top: calc(var(--w) * 1.15 - 12px);
+}
+
+.note {
+    font-size: clamp(16px, 2.6vw, 22px);
+    line-height: 2;
+    color: #e7e4f5;
+}
+
+.thought {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 18px;
+    padding: 12px 14px;
+    border: 1px dashed rgba(245, 182, 210, .5);
+    border-radius: 18px;
+    color: #aaa8bd;
+    font-size: clamp(14px, 2.3vw, 18px);
+    line-height: 1.9;
+}
+
+.thought .sticker {
+    width: 56px;
+    flex: 0 0 auto;
+}
+
+.story-center {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+/* ===== موبايل: كل حاجة تحت بعض ===== */
+
+@media (max-width: 700px) {
+
+    .arrows-svg {
+        display: none;
+    }
+
+    .bio {
+        width: 100%;
+    }
+
+    .bio-arrow {
+        margin: 4px auto 0;
+    }
+
+    .st-corner {
+        left: 36%;
+    }
+
+    .story-row,
+    .story-row.right {
+        flex-direction: column;
+        direction: rtl;
+        gap: 18px;
+        margin-bottom: 40px;
+    }
+
+    .story-row .media {
+        flex: none;
+        width: 100%;
+    }
+
+    .story-row .side {
+        text-align: center;
+    }
+
+    .story-row:not(:last-of-type)::after {
+        content: "⤵";
+        color: #f5b6d2;
+        font-size: 32px;
+        margin-top: 10px;
+    }
+}
+
+/* الاستيكرات اللي ليها خلفية (كلها ما عدا رقم 2) */
+.sticker.head,
+.thought .sticker {
+    border-radius: 14px;
+}
+
+.st-corner {
+    border-radius: 0;
+}
+
+/* ===== عناصر صفحة المحاولة التانية ===== */
+
+.cap {
+    position: relative;
+    z-index: 1;
+    width: 46%;
+    margin: 0 auto 10px 0;
+    font-size: 13px;
+    color: #8d8aa8;
+    line-height: 1.8;
+}
+
+.center-shot {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 40px;
+}
+
+@media (max-width: 700px) {
+
+    .cap {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+/* ===== صفحات 3 و4 و5 و6 ===== */
+
+.phone {
+    direction: ltr;
+    font-size: clamp(30px, 8vw, 52px);
+    letter-spacing: 3px;
+    color: #f5b6d2;
+    margin: 6px 0 14px;
+}
+
+.sticker.mid {
+    width: 90px;
+    margin: 0 auto 30px;
+    border-radius: 14px;
+}
+
+.media.double {
+    gap: 10px;
+}
+
+.media.double .shot {
+    max-width: calc(50% - 5px);
+}
+
+.love-big {
+    font-size: clamp(34px, 8vw, 58px);
+    color: #f5b6d2;
+    margin: 10px 0 24px;
+}
+
+.soon-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.soon-row .hint-text {
+    margin: 0;
+}
+
+.video-box video {
+    width: 100%;
+    max-height: 70vh;
+    border-radius: 16px;
+    background: #000;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
+}
+
+.page-inner .shot {
+    max-width: 100%;
+}
+
+.opt-red {
+    border-color: rgba(255, 90, 90, .7);
+    background: rgba(255, 70, 70, .18);
+}
+
+.opt-blue {
+    border-color: rgba(90, 150, 255, .7);
+    background: rgba(60, 120, 255, .18);
+}
+
+.count {
+    font-size: 72px;
+    color: #f5b6d2;
+    margin-top: 16px;
+}
+
+#page-video .reveal {
+    margin-top: 30px;
+}
+
+/* زر "اخر حاجة" جوه مشهد القلب */
+.last-wrap {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .8s ease;
+}
+
+.last-wrap.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* صورة 5 في صفحة "أسرع بلوك" (صورة عادية مش استيكر) */
+.photo-mid {
+    display: block;
+    max-height: 50vh;
+    margin: 0 auto 30px;
+}
+
+/* ===== تأثير الفلاش باك على الفيديو ===== */
+
+.video-box {
+    position: relative;
+}
+
+.video-box video {
+    display: block;
+    filter: sepia(.3) saturate(.9) contrast(1.05);
+}
+
+/* تعتيم الحواف عشان الفيديو "يداخل" في الخلفية */
+.video-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 16px;
+    box-shadow: inset 0 0 70px 30px #050510;
+}
+
+/* ظهور الفيديو من ضبابية وإضاءة زي الذكريات */
+#page-video.active .video-box {
+    animation: flashbackIn 2.8s ease both;
+}
+
+@keyframes flashbackIn {
+    0% {
+        opacity: 0;
+        filter: blur(18px) brightness(2.2);
+    }
+    60% {
+        opacity: 1;
+        filter: blur(4px) brightness(1.3);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0) brightness(1);
+    }
+}
+
+/* ===== صفحة الصورة التمهيدية ===== */
+
+.teaser-shot {
+    display: block;
+    max-height: 60vh;
+    margin: 0 auto 26px;
+}
+
+.teaser-text {
+    font-size: clamp(17px, 3.4vw, 24px);
+    line-height: 2;
+    color: #e7e4f5;
+    margin-bottom: 52px;
+}
+
+.under-note {
+    position: relative;
+    display: inline-block;
+}
+
+.under-note small {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    white-space: nowrap;
+    font-size: .6em;
+    line-height: 1.6;
+    color: #8d8aa8;
+}
+
+/* سهم من "اسروءا" لجملة "غالي ومستواك عالي" */
+.gov-line {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.gov-arrow {
+    width: 70px;
+    height: 40px;
+    fill: none;
+    stroke: #f5b6d2;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.gov-note {
+    color: #f5b6d2;
+    font-size: .9em;
+}
+
+@media (max-width: 600px) {
+
+    .gov-line {
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .gov-arrow {
+        transform: rotate(-90deg);
+        margin: 14px 0;
+    }
+}
+
+/* ===== الصفحة الأخيرة (الـPDF) ===== */
+
+#page-final .story-row {
+    margin-bottom: clamp(60px, 10vh, 100px);
+}
+
+#page-final .shot {
+    max-height: 80vh;
+}
+
+.envelope-shot {
+    cursor: pointer;
+    animation: envPulse 2.2s ease-in-out infinite;
+}
+
+.envelope-shot.opened {
+    cursor: default;
+    animation: none;
+}
+
+@keyframes envPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
+    }
+    50% {
+        transform: scale(1.025);
+        box-shadow: 0 0 40px rgba(245, 182, 210, .45);
+    }
+}
+
+#envHint {
+    transition: opacity .6s ease;
+    font-size: 18px;
+}
+
+.book-wrap {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+}
+
+/* اللينك فوق جملة "CLICK HERE TO LISTEN TO OUR SONG" */
+.song-link {
+    position: absolute;
+    left: 25.5%;
+    top: 29.4%;
+    width: 49%;
+    height: 3.4%;
+    border-radius: 6px;
+    animation: linkPulse 2s ease-in-out infinite;
+}
+
+@keyframes linkPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 220, 230, 0); }
+    50% { box-shadow: 0 0 14px 4px rgba(255, 220, 230, .75); }
+}
+
+
+/* ===== أسهم الصور حمرا وفيها قلوب ===== */
+
+.arrow-path,
+.arrow-head {
+    stroke: #e11d48;
+}
+
+.arrow-heart {
+    fill: #ff3355;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+/* ===== الظرف: من غير إطار وبحواف ناعمة ===== */
+
+.envelope-shot {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: none;
+}
+
+@keyframes envPulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 rgba(255, 120, 150, 0));
+    }
+    50% {
+        transform: scale(1.025);
+        filter: drop-shadow(0 0 22px rgba(255, 120, 150, .55));
+    }
+}
+
+/* ===== لينك الأغنية ===== */
+
+.song-link {
+    z-index: 3;
+}
+
+.song-pill {
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+    z-index: 3;
+    white-space: nowrap;
+    padding: 9px 16px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 220, 230, .8);
+    background: rgba(40, 6, 14, .72);
+    color: #fff;
+    font-size: clamp(11px, 1.6vw, 15px);
+    line-height: 1.4;
+    text-decoration: none;
+    backdrop-filter: blur(4px);
+    animation: linkPulse 2s ease-in-out infinite;
+}
+
+/* ===== صورة I will always choose you ===== */
+
+.choose-img {
+    display: block;
+    width: min(300px, 70%);
+    height: auto;
+    margin: 6px auto 34px;
+}

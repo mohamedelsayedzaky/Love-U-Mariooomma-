@@ -1,0 +1,187 @@
+body {
+    font-family: 'Cairo', Arial, Tahoma, sans-serif;
+}
+
+.hint-text {
+    font-size: 14px;
+    color: #8d8aa8;
+    margin-bottom: 14px;
+}
+
+/* ===== الصفحات ===== */
+
+.page {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 20px;
+    overflow-y: auto;
+    background: radial-gradient(circle at center, #15132a, #050510 70%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease, visibility 1s ease;
+    z-index: 50;
+}
+
+.page.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.page-inner {
+    width: 100%;
+    max-width: 640px;
+    margin: auto;
+}
+
+.big-line {
+    font-size: clamp(26px, 6vw, 46px);
+    font-weight: 300;
+    line-height: 1.6;
+    min-height: 1.6em;
+}
+
+.big-line.pink {
+    color: #f5b6d2;
+}
+
+.page-title {
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 300;
+    line-height: 1.8;
+    margin: 30px 0 22px;
+}
+
+.sub-title {
+    color: #aaa8bd;
+    font-size: clamp(16px, 3.5vw, 22px);
+    line-height: 1.9;
+    margin-bottom: 25px;
+}
+
+.glow-title {
+    font-size: clamp(32px, 8vw, 64px);
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #ffffff, #f5b6d2, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ===== ظهور تدريجي ===== */
+
+.reveal {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+.reveal.shown {
+    display: block;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: none;
+}
+
+.btn-row {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.start-btn:disabled {
+    opacity: .4;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* ===== عداد اليوم ===== */
+
+.date-row {
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0 10px;
+}
+
+.date-fixed {
+    font-size: clamp(32px, 9vw, 56px);
+    font-weight: 300;
+    color: #f5b6d2;
+    letter-spacing: 2px;
+}
+
+.date-sep {
+    color: #6d6a86;
+    font-size: 30px;
+}
+
+.day-picker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.day-value {
+    min-width: 70px;
+    font-size: clamp(32px, 9vw, 56px);
+    font-weight: 300;
+    border-bottom: 2px solid rgba(245, 182, 210, .5);
+}
+
+.step-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .25);
+    background: rgba(255, 255, 255, .06);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.step-btn:hover {
+    background: rgba(245, 182, 210, .2);
+}
+
+.date-msg {
+    min-height: 30px;
+    color: #f5b6d2;
+    margin: 14px 0;
+    line-height: 1.8;
+}
+
+.shake {
+    animation: shake .45s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+}
+
+/* ===== موبايل ===== */
+
+@media (max-width: 500px) {
+    .intro-title {
+        font-size: 34px;
+        letter-spacing: 2px;
+    }
+}

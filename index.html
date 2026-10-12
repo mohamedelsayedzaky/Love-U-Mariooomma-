@@ -1,130 +1,559 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>رسالة خاصة ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ✨</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
 
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-    font-family:Tahoma,sans-serif;
-    overflow:hidden;
-}
-
-.card{
-    background:rgba(255,255,255,.9);
-    padding:40px;
-    border-radius:25px;
-    text-align:center;
-    width:90%;
-    max-width:600px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
-    z-index:2;
-}
-
-h1{
-    color:#e91e63;
-    margin-bottom:20px;
-}
-
-p{
-    font-size:20px;
-    margin-bottom:20px;
-    line-height:1.8;
-}
-
-button{
-    border:none;
-    padding:12px 25px;
-    border-radius:30px;
-    cursor:pointer;
-    font-size:18px;
-    background:#e91e63;
-    color:white;
-}
-
-button:hover{
-    transform:scale(1.05);
-}
-
-.heart{
-    position:absolute;
-    font-size:25px;
-    animation:float 6s linear infinite;
-}
-
-@keyframes float{
-    from{
-        transform:translateY(100vh);
-        opacity:1;
-    }
-    to{
-        transform:translateY(-120px);
-        opacity:0;
-    }
-}
-</style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="flow.css">
+    <link rel="stylesheet" href="story.css">
 </head>
 
 <body>
 
-<div class="card">
-    <h1>❤️ أهلاً ❤️</h1>
+    <!-- شاشة البداية -->
+    <section class="intro" id="intro">
 
-    <p id="message">
-        أتمنى لكِ يومًا مليئًا بالسعادة والنجاح.
-    </p>
+        <div class="floating-names" id="floatingNames"></div>
+        <div class="stars" id="stars"></div>
 
-    <button onclick="changeMessage()">
-        اضغطي هنا
-    </button>
-</div>
+        <div class="intro-content">
 
-<script>
+            <div class="tiny-text">SOMETHING SPECIAL</div>
 
-const messages = [
-"أنتِ شخص مميز جدًا 🌷",
-"أتمنى لكِ كل التوفيق والنجاح ✨",
-"وجود الأشخاص الطيبين يجعل الحياة أجمل ❤️",
-"ابتسامتك تستحق أن تبقى دائمًا 😊",
-"أتمنى أن تحققي كل أحلامك 🌹"
-];
+            <h1 class="intro-title">𝐌𝐀𝐑𝐈𝐎𝐎𝐎𝐌𝐌𝐀 ♡</h1>
 
-function changeMessage(){
-    const random =
-    messages[Math.floor(Math.random()*messages.length)];
+            <p class="intro-message">
+                مفاجأة مش كده ؟
+            </p>
 
-    document.getElementById("message").innerText = random;
-}
+            <p class="hint-text">خمّني الأول، ممكن تكون المفاجأة دي بمناسبة إيه؟ 🤔</p>
 
-function createHeart(){
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML="❤️";
+            <button class="start-btn" onclick="goTo('page-love')">
+                خير يحموكشه
+            </button>
 
-    heart.style.left=Math.random()*100+"vw";
+        </div>
 
-    document.body.appendChild(heart);
+    </section>
 
-    setTimeout(()=>{
-        heart.remove();
-    },6000);
-}
 
-setInterval(createHeart,400);
+    <!-- صفحة: بمناسبة إني بحبك + استبيان أكتوبر -->
+    <section class="page" id="page-love">
+        <div class="page-inner">
 
-</script>
+            <p class="big-line" id="loveLine1"></p>
+            <p class="big-line pink" id="loveLine2"></p>
+
+            <div class="reveal" id="octBox">
+
+                <h2 class="page-title">
+                    بما إننا في أكتوبر، شهر الوقوع في الحب و كده
+                    <br>
+                    بس أكتوبر 2024 كان مختلف... فاكراه ليه؟
+                </h2>
+
+                <div class="btn-row">
+                    <button class="start-btn" id="yesBtn" onclick="answerMemory(true)">أه فاكرة</button>
+                    <button class="start-btn" id="noBtn" onclick="answerMemory(false)">لا</button>
+                </div>
+
+                <p class="date-msg" id="memoryMsg"></p>
+
+            </div>
+
+            <div class="reveal" id="dateStep">
+
+                <p class="sub-title">اكتبي اليوم اللي بتكلم عنه بالظبط (مش هتعدي إلا لما تجيبيه صح 😆)</p>
+
+                <div class="date-row" id="dateRow">
+                    <span class="date-fixed">2024</span>
+                    <span class="date-sep">/</span>
+                    <span class="date-fixed">10</span>
+                    <span class="date-sep">/</span>
+                    <div class="day-picker">
+                        <button class="step-btn" onclick="changeDay(-1)">−</button>
+                        <span class="day-value" id="dayValue">1</span>
+                        <button class="step-btn" onclick="changeDay(1)">+</button>
+                    </div>
+                </div>
+
+                <p class="date-msg" id="dateMsg"></p>
+
+                <button class="start-btn" onclick="checkDay()">وبعدين يحموكشه</button>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- صفحة: الصورة التمهيدية قبل شهر الرفض والبلوكات -->
+    <section class="page" id="page-teaser">
+        <div class="page-inner">
+
+            <img class="shot teaser-shot" data-n="00" alt="">
+
+            <p class="teaser-text">
+                احتمال كبير متكونيش عارفة ان المفاجأة دي ممهد ليه مسبقا،
+                <br>
+                <span class="gov-line">
+                    <span>لكن البركة في الحكومة (اسروءا)</span>
+                    <svg class="gov-arrow" viewBox="0 0 70 40">
+                        <path d="M66,10 C40,4 30,34 8,28"/>
+                        <path d="M18,19 L6,28 L19,35"/>
+                    </svg>
+                    <span class="gov-note">غالي ومستواك عالي 🫡</span>
+                </span>
+                <br>
+                محفظتش الاستريك، لكن على مين يا
+                <span class="under-note">اسروءا ده انا حموكشه<small>مش هتعرفي تتوقعيني</small></span>
+            </p>
+
+            <p class="sub-title">خلينا نكمل ونشوف شهر أكتوبر اللي بنتكلم عليه كان عبارة عن إيه</p>
+
+            <button class="start-btn" onclick="goTo('page-blocks')">يلا</button>
+
+        </div>
+    </section>
+
+
+    <!-- صفحة: شهر الرفض والبلوكات -->
+    <section class="page" id="page-blocks">
+        <div class="page-inner">
+
+            <h1 class="glow-title">شهر الرفض والبلوكات العظيم</h1>
+
+            <p class="sub-title">خلّينا نفتكر إيه اللي حصل...</p>
+
+            <button class="start-btn" onclick="goTo('page-story1')">يلا</button>
+
+        </div>
+    </section>
+
+
+    <!-- القصة: المحاولة الأولى -->
+    <section class="page story" id="page-story1">
+        <div class="story-inner">
+
+            <header class="story-head">
+                <h1 class="glow-title">جرأة خاسرة</h1>
+                <img class="sticker head" data-s="1" alt="">
+            </header>
+
+            <div class="bio sticker-bio">
+                <div class="bio-box">
+                    حموكشه: ولد أول مرة يحب بعد محاولات عديدة من أصدقائه للتجربة والدخول في علاقات محرمة، لكن جميعها باءت بالفشل نتيجة لمبادئ حموكشه اللي هنركنها على جنب بقى، عشان ظهرت الملكة الجميلة المختلفة النادرة والاستثنائية ← مريومه 🫶🏻
+                </div>
+                <svg class="bio-arrow" viewBox="0 0 60 90">
+                    <path d="M12,88 C12,52 46,60 44,12"/>
+                    <path d="M35,20 L44,9 L53,20"/>
+                </svg>
+            </div>
+
+            <article class="story-row left has-sticker">
+                <div class="media">
+                    <img class="sticker st-corner" data-s="2" alt="">
+                    <img class="shot" data-n="1" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">بعد أسبوع من التفكير في الدخلة والافتتاحية (اللي لو كانت افتتاحية كأس العالم كانت هتبقى أسهل)... المهم توصّلت للبداية العبقرية والجديدة أوي دي</p>
+                </div>
+            </article>
+
+            <article class="story-row right">
+                <div class="media">
+                    <img class="shot" data-n="2" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">واضح محمد رمضان بيتكلم</p>
+                    <div class="thought">
+                        <img class="sticker" data-s="1" alt="">
+                        <p>حموكشه على أعصابه، بما إن دي أول مرة فخبرته صفر... وبصراحة دي هتبقى أول وآخر مرة يبعت لبنت يقولها «التختة التالتة جنب الحيطة دي تاني»</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="story-row left">
+                <div class="media">
+                    <img class="shot" data-n="3" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">يبني اسمها محمد رمضان</p>
+                </div>
+            </article>
+
+            <article class="story-row right">
+                <div class="media">
+                    <img class="shot" data-n="4" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">طبعاً ولا كأننا شوفنا أي حاجة (يادي الكسفة)</p>
+                </div>
+            </article>
+
+            <article class="story-row left">
+                <div class="media">
+                    <img class="shot" data-n="5" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">كوول يلا</p>
+                </div>
+            </article>
+
+            <article class="story-row right">
+                <div class="media">
+                    <img class="shot" data-n="6" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">وهنا حموكشه بدأ ياخد نفسه، بس... Guess What؟ مكانش يعرف لسه إنه هيخرجه نفسه تاني عشان بلع أول بلوك 😆</p>
+                </div>
+            </article>
+
+            <div class="story-center">
+                <p class="sub-title">نروح لتاني محاولة ونشوف عملنا فيها إيه</p>
+                <button class="start-btn" onclick="goTo('page-story2')">يا مسهل</button>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- القصة: المحاولة التانية -->
+    <section class="page story" id="page-story2">
+        <div class="story-inner">
+
+            <header class="story-head">
+                <h1 class="glow-title">يارب تظبط المرادي</h1>
+                <img class="sticker head" data-s="3" alt="">
+            </header>
+
+            <div class="bio">
+                <div class="bio-box">
+                    وهنا هنعوّض في المرة دي بقى إن شاء الله، أوعدكم بحاجة مختلفة جداً المرادي... لكن حيث كده بقى، اسمحولي لزوم الاختلاف أدخل نفس الدخلة (يعني ترا الولد مصمم، مش مجرد ألعاب مراهقين)
+                </div>
+            </div>
+
+            <p class="cap">طبعاً مردتش الأول، بس هنعمل نفسنا مش واخدين بالنا</p>
+
+            <article class="story-row left">
+                <div class="media">
+                    <img class="shot" data-n="66" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">باين إني جنتل ولا أبين أكتر</p>
+                </div>
+            </article>
+
+            <article class="story-row right">
+                <div class="media">
+                    <img class="shot" data-n="7" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">عايز سلامتك يختي</p>
+                </div>
+            </article>
+
+            <article class="story-row left">
+                <div class="media">
+                    <img class="shot" data-n="8" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">طب والله وجهة نظر برضو</p>
+                </div>
+            </article>
+
+            <article class="story-row right">
+                <div class="media">
+                    <img class="shot" data-n="9" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">تمام 👍🏼</p>
+                </div>
+            </article>
+
+            <div class="story-center">
+                <p class="note">وعلى غير المتوقع خاااالص... بلوك عادي</p>
+            </div>
+
+            <div class="story-center">
+                <h2 class="page-title">
+                    بعد المرة دي وبعد قلة التقدير دي، كان الرد من حموكشه هو: تمام 👍🏼
+                    <br>
+                    وده إن دل يدل على إن كرامتي فوق أي شيء
+                    <br>
+                    خد حاجتك يا بيه، احنا مبنشحتش ❌
+                </h2>
+            </div>
+
+            <div class="center-shot">
+                <img class="shot" data-n="40" alt="">
+            </div>
+
+            <div class="story-center">
+                <button class="start-btn" onclick="goTo('page-story3')">اللي بعدو</button>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- القصة: المحاولة التالتة -->
+    <section class="page" id="page-story3">
+        <div class="page-inner">
+
+            <header class="story-head">
+                <h1 class="glow-title">أسرع بلوك</h1>
+                <img class="sticker head" data-s="4" alt="">
+            </header>
+
+            <p class="sub-title">ملحقتش أقول حاجة حتى بعتت نقطتين واتظرفت بلوك... بس مش مشكلة، عادي بتحصل في أكبر العائلات</p>
+
+            <p class="note">ده رقمي، لو حابة نتعرف... بس متقوليش لإسراء</p>
+            <p class="phone">01092567548</p>
+            <img class="shot photo-mid" data-s="5" alt="">
+
+            <button class="start-btn" onclick="goTo('page-story4')">إلا كرامتي ما أخليها</button>
+
+        </div>
+    </section>
+
+
+    <!-- القصة: النهاية السعيدة -->
+    <section class="page story" id="page-story4">
+        <div class="story-inner">
+
+            <header class="story-head">
+                <h1 class="glow-title">نهاية سعيدة</h1>
+                <img class="sticker head" data-s="6" alt="">
+            </header>
+
+            <div class="story-center">
+                <p class="sub-title">إنتي متعرفيش إن الحب ميفهوش كرامة ولا إيه؟<br>توكلنا على الله</p>
+            </div>
+
+            <div class="bio">
+                <div class="bio-box">
+                    بعد محاولتين نتيجتهم بلوك، والتالتة هدية، وعشان حموكشه مبيستسلمش (وهنعرف مبيستسلمش ازاي في مثال تاني كمان شوية)... حموكشه دخل للمرة التالتة
+                </div>
+            </div>
+
+            <div class="story-center">
+                <p class="note">بعد العديد من الكلمات والرسائل من حموكشه كان الرد....</p>
+            </div>
+
+            <article class="story-row left">
+                <div class="media">
+                    <img class="shot" data-n="11" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">مُتوقع 🤷🏻‍♂️</p>
+                </div>
+            </article>
+
+            <article class="story-row right">
+                <div class="media">
+                    <img class="shot" data-n="12" alt="">
+                </div>
+                <div class="side">
+                    <h2 class="page-title">بس يعني إيه؟</h2>
+                    <p class="note">وعشان حموكشه هو حموكشه، فالرد ده كان أنسب رد بالنسبة له، عشان من صفات حموكشه إنه عايز يخلص</p>
+                </div>
+            </article>
+
+            <article class="story-row left">
+                <div class="media double">
+                    <img class="shot" data-n="13" alt="">
+                    <img class="shot no-arrow" data-n="14" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">عامةً مكنتيش محتاجة تكتبي كل ده كان ممكن تقولي وأنا كمان بحبك وأنا هتفهم خلاص مكنتش هقول إنك واقعة يعني</p>
+                </div>
+            </article>
+
+            <div class="story-center">
+                <p class="note">بعد آخر رسالة حموكشه كان أسعد واحد في العالم يومها</p>
+                <p class="sub-title">يجي حد يقولي طب والبلوكات يبني؟ هقوله لا دي شكليات عادي تمويه تمويه، المهم متكلمناش</p>
+                <button class="start-btn" onclick="goTo('page-story5')">كمّل</button>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- القصة: هترد ولا هتكلسن -->
+    <section class="page story" id="page-story5">
+        <div class="story-inner">
+
+            <header class="story-head">
+                <h1 class="glow-title">هترد ولا هتكلسن</h1>
+                <img class="sticker head" data-s="7" alt="">
+            </header>
+
+            <article class="story-row left">
+                <div class="media">
+                    <img class="shot" data-n="15" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">هنا حموكشه معجبوش الكلام ده وقال يرن عليها ونحلها ودي</p>
+                </div>
+            </article>
+
+            <article class="story-row right">
+                <div class="media">
+                    <img class="shot" data-n="10" alt="">
+                </div>
+                <div class="side">
+                    <p class="note">طبعاً بعد العبثيات دي كلها كان الرياكشن المتوقع هو ده</p>
+                    <p class="note">لكن حموكشه مبيعتمدش الكلام ده وهيروح المدرسة ولا كأن أي حاجة حصلت</p>
+                </div>
+            </article>
+
+            <div class="center-shot">
+                <img class="shot" data-n="16" alt="">
+            </div>
+
+            <div class="story-center">
+                <p class="note">طب إنت ليه مصمم كده؟ أولاً إنتو مالكو 😆</p>
+                <p class="note">بعدين ده عشان مفيش أحلى ولا أجمل ولا أطيب ولا في حد أحسن من مريومتي</p>
+                <p class="love-big">بحبك 🫶🏻</p>
+                <img class="choose-img" data-n="choose" alt="I will always choose you">
+
+                <div class="soon-row">
+                    <button class="start-btn" disabled>كمّل</button>
+                    <span class="hint-text">متستعجلوش 😌</span>
+                </div>
+
+                <p class="sub-title">قبل ما نكمل، خلينا نشوف إزاي حموكشه مبيستسلمش تاني</p>
+                <button class="start-btn" onclick="goTo('page-video')">يلا نشوف</button>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- الفلاش باك + الاستبيانات + اللعبة -->
+    <section class="page" id="page-video">
+        <div class="page-inner">
+
+            <p class="sub-title">فاكرين الفيديو ده؟ </p>
+
+            <div class="video-box">
+                <video id="flashVideo" controls playsinline preload="auto">
+                    <source src="images/1008.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="reveal" id="streakBox">
+                <h2 class="page-title">فاكرة إيه اللي قولت عليه تفتكروه كويس في الاستريك اللي متحفظش؟</h2>
+                <div class="btn-row">
+                    <button class="start-btn" onclick="answerStreak()">لا</button>
+                    <button class="start-btn" onclick="answerStreak()">لا</button>
+                </div>
+            </div>
+
+            <div class="reveal" id="img17Box">
+                <img class="shot" data-n="17" alt="">
+            </div>
+
+            <div class="reveal" id="guessBox">
+                <h2 class="page-title">جيس إيه الجديد؟</h2>
+                <div class="btn-row">
+                    <button class="start-btn opt-red" onclick="answerGuess()">مش عارفة</button>
+                    <button class="start-btn opt-blue" onclick="answerGuess()">مش عارفة بس بالأزرق</button>
+                </div>
+            </div>
+
+            <div class="reveal" id="img18Box">
+                <img class="shot" data-n="18" alt="">
+                <p class="count" id="countdown"></p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- الصفحة الأخيرة: الـPDF كصفحات + الظرف -->
+    <section class="page story" id="page-final">
+        <div class="story-inner">
+
+            <article class="story-row left">
+                <div class="media">
+                    <img class="shot envelope-shot" id="envelope" data-n="book1" alt="" onclick="openEnvelope()">
+                </div>
+                <div class="side">
+                    <p class="hint-text" id="envHint">دوسي على الظرف 💌</p>
+                </div>
+            </article>
+
+            <div class="reveal" id="bookRest">
+
+                <article class="story-row right">
+                    <div class="media">
+                        <img class="shot" data-n="book2" alt="">
+                    </div>
+                    <div class="side"></div>
+                </article>
+
+                <article class="story-row left">
+                    <div class="media">
+                        <div class="book-wrap">
+                            <img class="shot" data-n="book3" alt="">
+                            <a class="song-pill" href="https://youtu.be/hnbALhWMLJI?si=UXDU4OXdbBG-UzR0" target="_blank" rel="noopener"
+                                onclick="document.getElementById('loveMusic').pause()">🎧 اضغط هنا عشان تسمع الأغنية المفضلة بتاعتنا</a>
+                        </div>
+                    </div>
+                    <div class="side"></div>
+                </article>
+
+                <article class="story-row right">
+                    <div class="media">
+                        <img class="shot" data-n="book4" alt="">
+                    </div>
+                    <div class="side">
+                        <p class="note">من الذاكرة 😔</p>
+                    </div>
+                </article>
+
+                <article class="story-row left">
+                    <div class="media">
+                        <img class="shot" data-n="book5" alt="">
+                    </div>
+                    <div class="side">
+                        <p class="note">طبعا بلا اكتوبر بلا بتاع بقى لان مش اكتوبر هو اللي هيخليني اختارك يا مريومتي 🫶🏻</p>
+                    </div>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- مشهد القلب (هنربطه بآخر القصة) -->
+    <section class="heart-scene" id="heartScene">
+        <canvas id="heartCanvas"></canvas>
+        <div class="heart-center" id="heartCenter">Love You</div>
+
+        <div class="last-wrap" id="lastWrap">
+            <button class="start-btn" onclick="goFinal()">اخر حاجة ←</button>
+        </div>
+    </section>
+
+    <audio id="loveMusic" preload="auto">
+        <source src="./love_you.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+    <script src="flow.js"></script>
+    <script src="story.js"></script>
+    <script src="final.js"></script>
 
 </body>
+
 </html>
