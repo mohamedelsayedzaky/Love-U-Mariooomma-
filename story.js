@@ -66,7 +66,7 @@ function initStory(pageId) {
     const page = document.getElementById(pageId);
     const inner = page.querySelector(".story-inner");
 
-    const svg = svgEl("svg", { class: "arrows-svg" });
+    const svg = svgEl("svg", { class: pageId === "page-final" ? "arrows-svg arrows-final" : "arrows-svg" });
     inner.prepend(svg);
 
     let arrows = [];
@@ -98,13 +98,15 @@ function initStory(pageId) {
             const b = shots[n + 1].getBoundingClientRect();
 
             const x1 = a.left + a.width / 2 - ir.left;
-            const y1 = a.bottom - ir.top + 6;
+            const rowA = shots[n].closest(".story-row").getBoundingClientRect();
+            const rowB = shots[n + 1].closest(".story-row").getBoundingClientRect();
+            const y1 = isMobile ? rowA.bottom - ir.top + 14 : a.bottom - ir.top + 6;
             const x2 = b.left + b.width / 2 - ir.left;
-            const y2 = b.top - ir.top - 10;
+            const y2 = isMobile ? rowB.top - ir.top - 14 : b.top - ir.top - 10;
             const dy = y2 - y1;
 
             const d = isMobile
-                ? `M${x1},${y1} C${Math.min(ir.width - 8, Math.max(x1, x2) + 24)},${y1 + dy * 0.3} ${Math.min(ir.width - 8, Math.max(x1, x2) + 24)},${y2 - dy * 0.3} ${x2},${y2}`
+                ? `M${x1},${y1} C${x1 + (x2 > x1 ? 34 : -34)},${y1 + dy * 0.32} ${x2 + (x2 > x1 ? -34 : 34)},${y2 - dy * 0.32} ${x2},${y2}`
                 : `M${x1},${y1} C${x1},${y1 + dy * 0.7} ${x2},${y2 - dy * 0.7} ${x2},${y2}`;
 
             const path = svgEl("path", { d: d, class: "arrow-path" });

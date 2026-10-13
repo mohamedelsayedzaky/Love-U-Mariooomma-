@@ -200,21 +200,47 @@
         left: 36%;
     }
 
+    /* Keep the desktop alternating image/text layout on phones. */
     .story-row,
     .story-row.right {
-        flex-direction: column;
-        direction: rtl;
-        gap: 18px;
-        margin-bottom: 40px;
+        flex-direction: row;
+        direction: ltr;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 170px;
+    }
+
+    .story-row.right {
+        flex-direction: row-reverse;
     }
 
     .story-row .media {
-        flex: none;
-        width: 100%;
+        flex: 0 0 40%;
+        width: 40%;
+        min-width: 0;
     }
 
     .story-row .side {
-        text-align: center;
+        flex: 1 1 0;
+        min-width: 0;
+        text-align: right;
+    }
+
+    .story-row .shot {
+        width: 100%;
+        max-width: 100%;
+        max-height: 34vh;
+        object-fit: contain;
+    }
+
+    .story-row .note,
+    .story-row .hint-text {
+        font-size: clamp(13px, 3.5vw, 16px);
+        line-height: 1.8;
+    }
+
+    #page-final .story-row {
+        margin-bottom: 190px
     }
 
 }
@@ -624,4 +650,31 @@
     width: min(300px, 70%);
     height: auto;
     margin: 6px auto 34px;
+}
+
+/* Keep final-page arrows red and make their golden hearts glow. */
+#page-final .arrows-svg .arrow-path,
+#page-final .arrows-svg .arrow-head {
+    stroke: #ffd166;
+    stroke-width: 3.5;
+    filter: drop-shadow(0 0 7px rgba(255, 209, 102, .9));
+}
+
+#page-final .arrows-svg .arrow-heart {
+    fill: #ffd166;
+    font-size: 20px;
+    filter: drop-shadow(0 0 7px rgba(255, 209, 102, .95));
+    animation: finalHeartGlow 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes finalHeartGlow {
+    from { filter: drop-shadow(0 0 5px rgba(255, 209, 102, .75)); }
+    to { filter: drop-shadow(0 0 13px rgba(255, 209, 102, 1)); }
+}
+
+@media (max-width: 700px) {
+    #page-final .arrows-svg .arrow-path,
+    #page-final .arrows-svg .arrow-head {
+        stroke-width: 3;
+    }
 }

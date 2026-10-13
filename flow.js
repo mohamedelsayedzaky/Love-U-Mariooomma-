@@ -138,7 +138,7 @@ function checkDay() {
 
     if (day === CORRECT_DAY) {
 
-        msg.textContent = "برااافووو تحياتي ";
+        msg.textContent = "تحياتي 🫡";
 
         setTimeout(() => goTo("page-teaser"), 1200);
 
