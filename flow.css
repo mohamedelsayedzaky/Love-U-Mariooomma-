@@ -187,3 +187,10 @@ body {
         unicode-bidi: isolate;
     }
 }
+
+/* Shorter fades on phones make page changes feel immediate. */
+@media (max-width: 700px) {
+    .page {
+        transition: opacity .38s ease, visibility .38s ease;
+    }
+}

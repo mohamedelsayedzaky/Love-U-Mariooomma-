@@ -2,8 +2,8 @@
    تحميل الصور (مع بدائل مؤقتة)
 ========================= */
 
-const IMG_EXTS = ["webp", "jpg", "jpeg", "png"];
-const STICKER_EXTS = ["png", "jpg", "jpeg", "webp"];
+const IMG_EXTS = ["jpg", "webp", "jpeg", "png"];
+const STICKER_EXTS = ["jpg", "png", "jpeg", "webp"];
 
 function placeholder(label, w, h) {
 
@@ -198,18 +198,23 @@ function initStory(pageId) {
     }
 
     let looping = false;
+    let previousTick = 0;
 
     function startLoop() {
 
         if (looping) return;
 
         looping = true;
+        previousTick = 0;
 
         requestAnimationFrame(tick);
     }
 
-    function tick() {
+    function tick(now) {
 
+        const elapsed = previousTick ? Math.min(now - previousTick, 50) : 16.67;
+        previousTick = now;
+        const easing = 1 - Math.exp(-elapsed / 125);
         let moving = false;
 
         arrows.forEach(a => {
@@ -217,7 +222,7 @@ function initStory(pageId) {
             const diff = a.target - a.cur;
 
             if (Math.abs(diff) > 0.0005) {
-                a.cur += diff * 0.14;
+                a.cur += diff * easing;
                 moving = true;
             } else {
                 a.cur = a.target;

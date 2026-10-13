@@ -22,7 +22,7 @@ function goTo(id) {
     target.scrollTop = 0;
 
     if (pageHooks[id]) {
-        setTimeout(pageHooks[id], 700);
+        requestAnimationFrame(() => pageHooks[id]());
     }
 }
 

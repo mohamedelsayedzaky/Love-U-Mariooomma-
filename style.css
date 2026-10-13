@@ -662,3 +662,54 @@ body {
             0 0 28px rgba(245, 182, 210, 0.24);
     }
 }
+
+/* A warm gold shine and small red hearts make the opening name stand out. */
+.intro-title {
+    position: relative;
+    display: inline-block;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Ctext x='16' y='27' font-size='12' fill='%23ff416c'%3E%E2%99%A5%3C/text%3E%3C/svg%3E"), linear-gradient(90deg, #ffffff, #f5b6d2, #ffffff);
+    background-size: 48px 48px, 200% auto;
+    background-repeat: repeat, no-repeat;
+    background-position: 0 0, 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: drop-shadow(0 0 7px rgba(255, 209, 102, .7))
+            drop-shadow(0 0 18px rgba(255, 190, 72, .32));
+    animation: introGradientMove 4s infinite alternate, introGoldGlow 2.4s ease-in-out infinite alternate;
+}
+
+.intro-title::before,
+.intro-title::after {
+    position: absolute;
+    top: .12em;
+    color: #ff416c;
+    font-size: .3em;
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(255, 65, 108, .9), 0 0 16px rgba(255, 65, 108, .65);
+    animation: introHeartPulse 1.5s ease-in-out infinite alternate;
+}
+
+.intro-title::before {
+    content: "♥";
+    left: -.45em;
+}
+
+.intro-title::after {
+    content: "♥";
+    right: -.45em;
+    animation-delay: .45s;
+}
+
+@keyframes introGoldGlow {
+    from { filter: drop-shadow(0 0 5px rgba(255, 209, 102, .55)) drop-shadow(0 0 12px rgba(255, 190, 72, .24)); }
+    to { filter: drop-shadow(0 0 11px rgba(255, 224, 138, .95)) drop-shadow(0 0 23px rgba(255, 190, 72, .48)); }
+}
+
+@keyframes introHeartPulse {
+    from { transform: scale(.88); }
+    to { transform: scale(1.18); }
+}
+@keyframes introGradientMove {
+    from { background-position: 0 0, 0% 50%; }
+    to { background-position: 0 0, 100% 50%; }
+}

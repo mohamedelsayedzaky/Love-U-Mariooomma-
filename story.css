@@ -215,8 +215,8 @@
     }
 
     .story-row .media {
-        flex: 0 0 40%;
-        width: 40%;
+        flex: 0 0 46%;
+        width: 46%;
         min-width: 0;
     }
 
@@ -224,23 +224,46 @@
         flex: 1 1 0;
         min-width: 0;
         text-align: right;
+        color: #f4f0fb;
     }
 
     .story-row .shot {
         width: 100%;
         max-width: 100%;
-        max-height: 34vh;
+        max-height: 38vh;
         object-fit: contain;
     }
 
     .story-row .note,
     .story-row .hint-text {
-        font-size: clamp(13px, 3.5vw, 16px);
+        color: #f4f0fb;
+        font-size: clamp(14px, 3.8vw, 17px);
         line-height: 1.8;
     }
 
     #page-final .story-row {
-        margin-bottom: 190px
+        margin-bottom: 190px;
+    }
+
+    /* Keep the envelope alone and centered until it is opened. */
+    #page-final > .story-inner > .story-row {
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 170px;
+    }
+
+    #page-final > .story-inner > .story-row .media {
+        flex: none;
+        width: 100%;
+    }
+
+    #page-final > .story-inner > .story-row .side {
+        flex: none;
+        text-align: center;
+    }
+
+    #page-final > .story-inner > .story-row .shot {
+        max-height: 48vh;
     }
 
 }
