@@ -21,7 +21,7 @@ function loadAssetsIn(pageId) {
 
 pageHooks["page-teaser"] = () => loadAssetsIn("page-teaser");
 pageHooks["page-story3"] = () => loadAssetsIn("page-story3");
-pageHooks["page-final"] = () => initStory("page-final");
+pageHooks["page-final"] = () => { initStory("page-final"); setupFinalMessageAutoScroll(); };
 
 
 /* =========================
@@ -97,7 +97,7 @@ function answerGuess() {
 
         n--;
 
-        el.textContent = n > 0 ? n : "❤️";
+        el.textContent = n > 0 ? n : "😎";
 
         if (n <= 0) {
             clearInterval(timer);
@@ -180,4 +180,36 @@ function openEnvelope() {
             rest.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 450);
     }));
+}
+
+/* After the last photo has been read, bring the message card into view. */
+let finalMessageObserver = null;
+let finalMessageTimer = null;
+let finalMessageAutoScrolled = false;
+
+function setupFinalMessageAutoScroll() {
+    const page = document.getElementById("page-final");
+    const lastRow = document.getElementById("book5Row");
+    const formPanel = document.getElementById("messageFormPanel");
+    if (!page || !lastRow || !formPanel || finalMessageAutoScrolled) return;
+
+    if (finalMessageObserver) finalMessageObserver.disconnect();
+    finalMessageObserver = new IntersectionObserver(entries => {
+        const entry = entries[0];
+        if (finalMessageAutoScrolled) return;
+        clearTimeout(finalMessageTimer);
+        if (!entry.isIntersecting || !page.classList.contains("active")) return;
+
+        finalMessageTimer = setTimeout(() => {
+            if (!page.classList.contains("active")) return;
+            formPanel.hidden = false;
+            storyState["page-final"]?.rebuild();
+            finalMessageAutoScrolled = true;
+            formPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+            finalMessageObserver?.disconnect();
+            finalMessageObserver = null;
+        }, 5000);
+    }, { root: page, threshold: 0.35 });
+
+    finalMessageObserver.observe(lastRow);
 }

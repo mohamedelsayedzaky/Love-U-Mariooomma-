@@ -1110,3 +1110,68 @@ function showHeart() {
     );
 
 }
+
+/* Photo enlargement and sticker surprise */
+const photoZoom = document.createElement("div");
+photoZoom.className = "photo-zoom";
+photoZoom.setAttribute("role", "dialog");
+photoZoom.setAttribute("aria-modal", "true");
+photoZoom.setAttribute("aria-label", "عرض الصورة بحجم أكبر");
+photoZoom.innerHTML = '<button class="photo-zoom-close" type="button" aria-label="إغلاق">×</button><img alt="">';
+document.body.append(photoZoom);
+const photoZoomImage = photoZoom.querySelector("img");
+let photoZoomTrigger = null;
+function closePhotoZoom() {
+    photoZoom.classList.remove("is-open");
+    document.body.style.overflow = "";
+    photoZoomImage.removeAttribute("src");
+    photoZoomTrigger?.focus();
+}
+document.addEventListener("click", event => {
+    const target = event.target;
+    const surpriseSticker = target.closest?.(".surprise-sticker");
+    if (surpriseSticker) {
+        showStickerSurprise(surpriseSticker);
+        return;
+    }
+    const shot = target.closest?.(".story-row .shot:not(.envelope-shot)");
+    if (shot) {
+        photoZoomTrigger = shot;
+        photoZoomImage.src = shot.currentSrc || shot.src;
+        photoZoomImage.alt = shot.alt || "صورة مكبرة";
+        photoZoom.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        photoZoom.querySelector(".photo-zoom-close").focus();
+        return;
+    }
+    if (target === photoZoom || target.closest?.(".photo-zoom-close")) closePhotoZoom();
+});
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && photoZoom.classList.contains("is-open")) closePhotoZoom();
+    const sticker = event.target.closest?.(".surprise-sticker");
+    if (sticker && (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+        showStickerSurprise(sticker);
+    }
+});
+function showStickerSurprise(sticker) {
+    if (!sticker) return;
+    
+    sticker.classList.add("is-tapped");
+    const rect = sticker.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    for (let i = 0; i < 9; i++) {
+        const heart = document.createElement("span");
+        const angle = (Math.PI * 2 * i) / 9 - Math.PI / 2;
+        const distance = 34 + Math.random() * 34;
+        heart.className = "floating-sticker-heart";
+        heart.textContent = i % 3 === 0 ? "💖" : "♥";
+        heart.style.left = `${centerX}px`;
+        heart.style.top = `${centerY}px`;
+        heart.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
+        heart.style.setProperty("--dy", `${Math.sin(angle) * distance - 18}px`);
+        document.body.append(heart);
+        setTimeout(() => heart.remove(), 1150);
+    }
+}

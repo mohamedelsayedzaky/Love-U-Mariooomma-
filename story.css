@@ -193,6 +193,8 @@
     }
 
     .bio-arrow {
+        /* Extend the arrow down toward sticker 2 on phones. */
+        height: 184px;
         margin: 4px auto 0;
     }
 
@@ -701,3 +703,82 @@
         stroke-width: 3;
     }
 }
+
+/* Custom message form, styled to match the final page */
+.message-form-wrap { position: relative; z-index: 2; width: min(720px, 100%); margin: 70px auto 50px; }
+.message-form-wrap[hidden] { display: none; }
+.message-form-panel {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: 0;
+    padding: clamp(20px, 4vw, 32px);
+    border: 1px solid rgba(245, 182, 210, .48);
+    border-radius: 26px;
+    background: linear-gradient(145deg, rgba(47, 31, 58, .96), rgba(24, 20, 43, .98));
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .3), 0 0 28px rgba(245, 182, 210, .12);
+}
+.message-form-heading { display: flex; align-items: center; justify-content: center; margin-bottom: 22px; text-align: center; }
+.message-form-heading h2 { margin: 0; color: #ffe4ef; font-size: clamp(22px, 5vw, 30px); font-weight: 500; }
+.message-form-sticker { position: absolute; right: 5%; top: -180px; z-index: 1; display: block; width: clamp(132px, 18vw, 154px); height: auto; object-fit: contain; transform: rotate(20deg); cursor: pointer; }
+.message-form { display: grid; gap: 12px; }
+.message-form-label { color: #f5d9e8; font-size: 16px; }
+.message-form textarea {
+    display: block;
+    width: 100%;
+    min-height: 150px;
+    resize: vertical;
+    padding: 16px 18px;
+    border: 1px solid rgba(245, 182, 210, .42);
+    border-radius: 17px;
+    outline: none;
+    background: rgba(8, 7, 20, .48);
+    color: #fff4fa;
+    font: inherit;
+    line-height: 1.8;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+.message-form textarea::placeholder { color: #b9a9c3; }
+.message-form textarea:focus { border-color: #f5b6d2; box-shadow: 0 0 0 3px rgba(245, 182, 210, .13); }
+.message-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.message-form-status { margin: 0; color: #d6c4dd; font-size: 14px; line-height: 1.7; }
+.message-form-status[data-state="success"] { color: #a9e8c3; }
+.message-form-status[data-state="error"] { color: #ffb2bc; }
+.message-form-submit {
+    flex: 0 0 auto;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 999px;
+    padding: 12px 24px;
+    background: linear-gradient(110deg, #9b5de5, #e85d9e);
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+    transition: transform .2s ease, opacity .2s ease, box-shadow .2s ease;
+}
+.message-form-submit:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232, 93, 158, .25); }
+.message-form-submit:disabled { opacity: .48; cursor: not-allowed; }
+.message-form-trap { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; opacity: 0 !important; }
+.message-form-target { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
+@media (max-width: 700px) {
+    .message-form-wrap { margin: 58px auto 40px; }
+    .message-form-panel { padding: 19px 14px; }
+    .message-form-sticker { right: 4%; top: -160px; width: clamp(116px, 31vw, 136px); }
+    .message-form textarea { min-height: 135px; }
+    .message-form-actions { align-items: stretch; flex-direction: column; }
+    .message-form-submit { align-self: flex-start; }
+}/* Tap-to-zoom photo viewer and sticker affordance */
+.surprise-sticker { cursor: pointer; animation: stickerHintGlow 1.8s ease-in-out infinite; }
+.sticker-hint { position: absolute; top: calc(var(--w) * -.08); left: 2%; z-index: 2; padding: 5px 9px; border: 1px solid rgba(255, 209, 102, .75); border-radius: 999px; background: rgba(25, 15, 35, .92); color: #ffe7a1; font-size: clamp(10px, 2.7vw, 13px); white-space: nowrap; pointer-events: none; box-shadow: 0 0 12px rgba(255, 209, 102, .35); }
+@keyframes stickerHintGlow { 0%, 100% { filter: drop-shadow(0 0 3px rgba(255, 209, 102, .35)); } 50% { filter: drop-shadow(0 0 15px rgba(255, 209, 102, .95)); } }
+@media (max-width: 700px) { .sticker-hint { left: 36%; } }
+.story-row .shot:not(.envelope-shot) { cursor: zoom-in; }
+.photo-zoom { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom)); background: rgba(5, 4, 12, .94); opacity: 0; visibility: hidden; transition: opacity .2s ease, visibility .2s ease; }
+.photo-zoom.is-open { opacity: 1; visibility: visible; }
+.photo-zoom img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; border: 0; border-radius: 10px; box-shadow: 0 0 35px rgba(245, 182, 210, .2); }
+.photo-zoom-close { position: absolute; top: max(12px, env(safe-area-inset-top)); right: 16px; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; background: rgba(40,35,55,.9); color: #fff; font-size: 28px; line-height: 1; cursor: pointer; }
+.surprise-toast { position: fixed; left: 50%; bottom: max(28px, env(safe-area-inset-bottom)); z-index: 10001; max-width: calc(100vw - 32px); padding: 12px 18px; border: 1px solid rgba(245,182,210,.7); border-radius: 999px; background: rgba(35,17,39,.96); color: #fff0f7; font-size: 15px; text-align: center; box-shadow: 0 0 22px rgba(245,182,210,.32); transform: translate(-50%,18px); opacity: 0; transition: opacity .22s ease, transform .22s ease; }
+.surprise-toast.is-visible { transform: translate(-50%,0); opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .surprise-sticker { animation: none; } .photo-zoom, .surprise-toast { transition: none; } }
+.floating-sticker-heart { position: fixed; z-index: 10002; pointer-events: none; color: #ff557a; font-size: 20px; text-shadow: 0 0 10px rgba(255, 85, 122, .85); animation: stickerHeartPop 1.05s ease-out forwards; }
+@keyframes stickerHeartPop { from { opacity: 1; transform: translate(0, 0) scale(.55); } to { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.2); } }
+@media (prefers-reduced-motion: reduce) { .surprise-sticker.is-tapped { animation: none; } .floating-sticker-heart { animation: none; } }
