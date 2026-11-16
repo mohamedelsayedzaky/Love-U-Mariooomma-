@@ -342,12 +342,11 @@ let animationStarted =
 
 function resizeHeartCanvas() {
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    heartCanvas.width = Math.round(window.innerWidth * dpr);
-    heartCanvas.height = Math.round(window.innerHeight * dpr);
-    heartCanvas.style.width = `${window.innerWidth}px`;
-    heartCanvas.style.height = `${window.innerHeight}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    heartCanvas.width =
+        window.innerWidth;
+
+    heartCanvas.height =
+        window.innerHeight;
 
 }
 
@@ -405,8 +404,6 @@ function heartXY(t) {
 
 function toScreen(x, y) {
 
-    const mobileHeart = window.innerWidth <= 700;
-
     const scale =
         Math.min(
 
@@ -414,9 +411,9 @@ function toScreen(x, y) {
 
             Math.min(
 
-            window.innerWidth / (mobileHeart ? 45 : 65),
+                window.innerWidth / 45,
 
-            window.innerHeight / (mobileHeart ? 35 : 48)
+                window.innerHeight / 35
 
             )
 
@@ -503,7 +500,7 @@ function createParticle(
 
 function buildOutlineParticles() {
 
-    const nOutline = window.innerWidth <= 700 ? 160 : 110;
+    const nOutline = 160;
 
     const minGap = 30;
 
@@ -590,7 +587,7 @@ function buildOutlineParticles() {
 
 function buildFillParticles() {
 
-    const nFill = window.innerWidth <= 700 ? 130 : 75;
+    const nFill = 130;
 
     const minGap = 46;
 
@@ -824,7 +821,7 @@ function drawParticle(
         color;
 
 
-    ctx.shadowBlur = window.innerWidth <= 700 ? 18 : 9;
+    ctx.shadowBlur = 18;
 
 
     ctx.fillStyle =
@@ -987,11 +984,6 @@ function animateHeart(
     startTime
 ) {
 
-    if (!document.getElementById("heartScene").classList.contains("show")) {
-        animationStarted = false;
-        return;
-    }
-
     const elapsed =
         performance.now() -
         startTime;
@@ -1008,9 +1000,9 @@ function animateHeart(
         0,
 
 
-        window.innerWidth,
+        heartCanvas.width,
 
-        window.innerHeight
+        heartCanvas.height
 
     );
 
@@ -1072,8 +1064,13 @@ function animateHeart(
 
 function showHeart() {
 
-    if (animationStarted) return;
-    animationStarted = true;
+
+    if (animationStarted)
+        return;
+
+
+    animationStarted =
+        true;
 
     heartScene.classList.add(
         "show"
