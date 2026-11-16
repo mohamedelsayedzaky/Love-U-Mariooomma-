@@ -6,17 +6,39 @@ function loadAssetsIn(pageId) {
 
     const page = document.getElementById(pageId);
 
-    page.querySelectorAll("img[data-n]").forEach(img => {
-        if (!img.getAttribute("src")) {
-            loadAsset(img, `images/${img.dataset.n}`, IMG_EXTS, img.dataset.n, 300, 400);
-        }
+    page.querySelectorAll("img[data-n], img[data-s]").forEach(img => {
+        if (img.dataset.n !== undefined) loadImageAsset(img, `images/${img.dataset.n}`, IMG_EXTS, img.dataset.n, 300, 400);
+        else loadImageAsset(img, `images/S${img.dataset.s}`, STICKER_EXTS, `S${img.dataset.s}`, 200, 200);
     });
+}
 
-    page.querySelectorAll("img[data-s]").forEach(img => {
-        if (!img.getAttribute("src")) {
-            loadAsset(img, `images/S${img.dataset.s}`, STICKER_EXTS, "S" + img.dataset.s, 200, 200);
+const assetLoaders = new WeakMap();
+
+function loadImageAsset(img, base, exts, label, w, h, onDone) {
+    if (img.dataset.assetLoaded === "true") return;
+    let load = assetLoaders.get(img);
+    if (!load) {
+        load = new Promise(resolve => {
+            loadAsset(img, base, exts, label, w, h, resolve);
+        }).then(() => { img.dataset.assetLoaded = "true"; });
+        assetLoaders.set(img, load);
+    }
+    if (onDone) load.then(() => requestAnimationFrame(onDone));
+    return load;
+}
+
+function preloadPageAssets(pageId) {
+    const page = document.getElementById(pageId);
+    if (!page) return;
+    const assets = [...page.querySelectorAll("img[data-n], img[data-s]")];
+    const warm = img => {
+        if (img.dataset.n !== undefined) {
+            return loadImageAsset(img, `images/${img.dataset.n}`, IMG_EXTS, img.dataset.n, 300, 400);
         }
-    });
+        return loadImageAsset(img, `images/S${img.dataset.s}`, STICKER_EXTS, `S${img.dataset.s}`, 200, 200);
+    };
+    if ("requestIdleCallback" in window) requestIdleCallback(() => assets.forEach(warm), { timeout: 900 });
+    else setTimeout(() => assets.forEach(warm), 80);
 }
 
 pageHooks["page-teaser"] = () => loadAssetsIn("page-teaser");
@@ -39,6 +61,8 @@ function startVideoPage() {
 
     const video = document.getElementById("flashVideo");
 
+    video.load();
+
     let revealed = false;
 
     function reveal() {
@@ -50,7 +74,7 @@ function startVideoPage() {
     video.addEventListener("ended", reveal);
     video.addEventListener("error", reveal);
 
-    video.play().catch(() => { });
+    // Keep the video under the visitor's control; mobile autoplay can stall navigation.
 
     // لو الفيديو ماشتغلش لأي سبب، الاستبيان يظهر برضو
     setTimeout(reveal, 40000);
@@ -203,9 +227,11 @@ function setupFinalMessageAutoScroll() {
         finalMessageTimer = setTimeout(() => {
             if (!page.classList.contains("active")) return;
             formPanel.hidden = false;
-            storyState["page-final"]?.rebuild();
             finalMessageAutoScrolled = true;
-            formPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+            requestAnimationFrame(() => {
+                storyState["page-final"]?.rebuild();
+                formPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            });
             finalMessageObserver?.disconnect();
             finalMessageObserver = null;
         }, 5000);

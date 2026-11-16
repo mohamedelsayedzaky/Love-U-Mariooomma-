@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
     <title>Hamoksha loves Mariomma</title>
     <meta property="og:title" content="For Mariooommaaaa 🫶🏻">
     <meta property="og:site_name" content="Hamoksha loves Mariomma">
@@ -13,7 +13,7 @@
     <meta name="twitter:image" content="https://mohamedelsayedzaky.github.io/Love-U-Mariooomma-/love-icon.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
 
     <link rel="icon" type="image/svg+xml" href="love-icon.svg">
     <link rel="icon" type="image/png" sizes="512x512" href="love-icon.png">
@@ -34,13 +34,14 @@
 
             <div class="tiny-text">SOMETHING SPECIAL FOR </div>
 
-            <h1 class="intro-title" dir="ltr"><span class="intro-heart-orbit" aria-hidden="true"><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i></span><span class="intro-letter-hearts" aria-hidden="true"><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i><i>♥</i></span>𝐌𝐀𝐑𝐈𝐎𝐎𝐎𝐌𝐌𝐀<br><span style="display:block;font-size:.7em;line-height:1;color:#f5b6d2">♡</span></h1>
+            <h1 class="intro-title" dir="ltr"><span class="intro-name">MARIOOOMMA</span></h1>
+            <span class="intro-heart-mark" aria-hidden="true">♡</span>
 
             <p class="intro-message">
                 مفاجأة مش كده ؟
             </p>
 
-            <p class="hint-text">خمّني الأول، ممكن تكون المفاجأة دي بمناسبة إيه؟ 🤔</p>
+            <p class="hint-text">خمني الأول، ممكن تكون المفاجأة دي بمناسبة إيه؟ 🤔</p>
 
             <button class="start-btn" onclick="goTo('page-love')">
                 خير يحموكشه
@@ -105,7 +106,7 @@
     <section class="page" id="page-teaser">
         <div class="page-inner">
 
-            <img class="shot teaser-shot" data-n="00" alt="">
+            <img class="shot teaser-shot" data-n="00" alt="اضغطي لعرض الصورة بحجم أكبر" role="button" tabindex="0" aria-label="عرض الصورة التمهيدية بحجم أكبر">
 
             <p class="teaser-text">
                 احتمال كبير متكونيش عارفة ان المفاجأة دي ممهد ليه مسبقا،
@@ -388,7 +389,7 @@
             <div class="story-center">
                 <p class="note">بعد آخر رسالة حموكشه كان أسعد واحد في العالم يومها</p>
                 <p class="sub-title">يجي حد يقولي طب والبلوكات يبني؟ هقوله لا دي شكليات عادي تمويه تمويه، المهم متكلمناش</p>
-                <button class="start-btn" onclick="goTo('page-story5')">كمّل</button>
+                <button class="start-btn" onclick="goTo('page-story5')">كمل</button>
             </div>
 
         </div>
@@ -431,11 +432,6 @@
                 <p class="note">طب إنت ليه مصمم كده؟ أولاً إنتو مالكو 😆</p>
                 <p class="note">بعدين ده عشان مفيش أحلى ولا أجمل ولا أطيب وعشان مفيش حد في الكوكب ده احسن من مريومتي</p>
                 <p class="love-big">بحبك 🫶🏻</p>
-                <div class="soon-row">
-                    <button class="start-btn" disabled>كمّل</button>
-                    <span class="hint-text">متستعجلوش 😌</span>
-                </div>
-
                 <p class="sub-title">قبل ما نكمل، خلينا نشوف إزاي حموكشه مبيستسلمش تاني</p>
                 <button class="start-btn" onclick="goTo('page-video')">يلا نشوف</button>
             </div>
@@ -451,7 +447,7 @@
             <p class="sub-title">فاكرين الفيديو ده؟ </p>
 
             <div class="video-box">
-                <video id="flashVideo" controls playsinline preload="auto">
+                <video id="flashVideo" controls playsinline preload="none">
                     <source src="images/1008.mp4" type="video/mp4">
                 </video>
             </div>
@@ -572,7 +568,7 @@
         </div>
     </section>
 
-    <audio id="loveMusic" preload="auto">
+    <audio id="loveMusic" preload="none">
         <source src="./love_you.mp3" type="audio/mpeg">
     </audio>
 

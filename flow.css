@@ -20,6 +20,7 @@ body {
     text-align: center;
     padding: 30px 20px;
     overflow-y: auto;
+    overflow-x: hidden;
     background: radial-gradient(circle at center, #15132a, #050510 70%);
     opacity: 0;
     visibility: hidden;
@@ -48,6 +49,9 @@ body {
 .big-line.pink {
     color: #f5b6d2;
 }
+
+#loveLine2 { white-space: nowrap; }
+.love-emoji { font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; color: initial; }
 
 .page-title {
     font-size: clamp(22px, 5vw, 36px);

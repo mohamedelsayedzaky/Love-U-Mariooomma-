@@ -11,6 +11,7 @@
     position: relative;
     width: 100%;
     max-width: 1000px;
+    min-width: 0;
     margin: 0 auto;
 }
 
@@ -102,6 +103,7 @@
     display: flex;
     align-items: center;
     gap: 32px;
+    min-width: 0;
     direction: ltr;
     margin-bottom: clamp(70px, 12vh, 120px);
 }
@@ -112,6 +114,7 @@
 
 .story-row .media {
     flex: 0 0 46%;
+    min-width: 0;
     display: flex;
     justify-content: center;
     position: relative;
@@ -119,6 +122,8 @@
 
 .story-row .side {
     flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
     direction: rtl;
     text-align: right;
 }
@@ -244,19 +249,24 @@
     }
 
     #page-final .story-row {
-        margin-bottom: 190px;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 120px;
     }
 
     /* Keep the envelope alone and centered until it is opened. */
     #page-final > .story-inner > .story-row {
         flex-direction: column;
         gap: 14px;
-        margin-bottom: 170px;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 120px;
     }
 
     #page-final > .story-inner > .story-row .media {
         flex: none;
         width: 100%;
+        max-width: 100%;
     }
 
     #page-final > .story-inner > .story-row .side {
@@ -454,6 +464,7 @@
 
 .teaser-shot {
     display: block;
+    cursor: zoom-in;
     max-height: 60vh;
     margin: 0 auto 26px;
 }
@@ -523,6 +534,10 @@
 
 #page-final .story-row {
     margin-bottom: clamp(60px, 10vh, 100px);
+}
+
+#page-final .message-form-sticker {
+    max-width: 28vw;
 }
 
 #page-final .shot {
@@ -705,7 +720,9 @@
 }
 
 /* Custom message form, styled to match the final page */
-.message-form-wrap { position: relative; z-index: 2; width: min(720px, 100%); margin: 70px auto 50px; }
+.message-form-wrap { position: relative; z-index: 2; width: min(720px, 100%); max-width: 100%; margin: 48px auto 32px; }
+.message-form-wrap, .message-form-panel, .message-form { min-width: 0; }
+.message-form textarea { max-width: 100%; }
 .message-form-wrap[hidden] { display: none; }
 .message-form-panel {
     position: relative;
@@ -760,7 +777,7 @@
 .message-form-trap { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; opacity: 0 !important; }
 .message-form-target { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
 @media (max-width: 700px) {
-    .message-form-wrap { margin: 58px auto 40px; }
+    .message-form-wrap { width: 100%; max-width: 100%; margin: 36px auto 24px; }
     .message-form-panel { padding: 19px 14px; }
     .message-form-sticker { right: 4%; top: -160px; width: clamp(116px, 31vw, 136px); }
     .message-form textarea { min-height: 135px; }
@@ -782,3 +799,149 @@
 .floating-sticker-heart { position: fixed; z-index: 10002; pointer-events: none; color: #ff557a; font-size: 20px; text-shadow: 0 0 10px rgba(255, 85, 122, .85); animation: stickerHeartPop 1.05s ease-out forwards; }
 @keyframes stickerHeartPop { from { opacity: 1; transform: translate(0, 0) scale(.55); } to { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.2); } }
 @media (prefers-reduced-motion: reduce) { .surprise-sticker.is-tapped { animation: none; } .floating-sticker-heart { animation: none; } }
+
+/* Unified dark-plum and warm-gold finish across the full story flow. */
+:root {
+    --romantic-gold: #e8ba63;
+    --romantic-cream: #fff5d6;
+    --romantic-plum: #1f1a2b;
+    --romantic-panel: rgba(28, 21, 37, .88);
+    --romantic-lavender: #c7bdd9;
+}
+
+.page {
+    background: radial-gradient(ellipse at 50% 43%, #1a1020 0%, #0b0712 62%, #07050d 100%);
+}
+
+.page-title,
+.glow-title {
+    color: #edc5d7;
+    text-shadow: 0 0 18px rgba(213, 151, 190, .13);
+}
+
+.glow-title {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+}
+
+.sub-title,
+.hint-text {
+    color: var(--romantic-lavender);
+}
+
+.big-line { color: var(--romantic-cream); }
+.big-line.pink,
+.love-big { color: #f2bfd2; }
+#loveLine2 { color: #ff526f; text-shadow: 0 0 5px rgba(255, 63, 100, .35), 0 0 12px rgba(255, 63, 100, .22); }
+#loveLine2 .love-emoji { color: initial; filter: none; text-shadow: none; }
+.love-big { color: #ff526f; text-shadow: 0 0 6px rgba(255, 63, 100, .36), 0 0 14px rgba(255, 63, 100, .22); }
+.date-fixed,
+.day-value,
+.date-msg { color: #e6bfd4; }
+
+.step-btn {
+    border-color: rgba(201, 171, 216, .42);
+    background: rgba(31, 26, 43, .82);
+    color: var(--romantic-cream);
+}
+
+.step-btn:hover {
+    border-color: rgba(245, 182, 210, .78);
+    background: rgba(210, 143, 184, .12);
+}
+
+.start-btn:not(.opt-red):not(.opt-blue) {
+    border: 1px solid rgba(201, 171, 216, .42);
+    background: rgba(31, 26, 43, .92);
+    color: var(--romantic-cream);
+    box-shadow: 0 0 18px rgba(193, 145, 200, .1);
+    backdrop-filter: blur(8px);
+}
+
+.start-btn:not(.opt-red):not(.opt-blue):hover {
+    border-color: rgba(245, 182, 210, .78);
+    box-shadow: 0 8px 26px rgba(205, 129, 180, .18);
+}
+
+.start-btn:not(.opt-red):not(.opt-blue)::before {
+    background: linear-gradient(90deg, transparent, rgba(245, 182, 210, .15), transparent);
+}
+
+.bio-box {
+    border-color: rgba(201, 171, 216, .3);
+    background: linear-gradient(145deg, rgba(42, 29, 48, .86), rgba(20, 15, 29, .9));
+    box-shadow: 0 12px 34px rgba(0, 0, 0, .2);
+}
+
+.note { color: #e9e1ee; }
+
+.shot {
+    border-color: rgba(245, 182, 210, .18);
+    box-shadow: 0 14px 38px rgba(0, 0, 0, .4), 0 0 18px rgba(210, 143, 184, .05);
+}
+
+.video-box video {
+    border: 1px solid rgba(201, 171, 216, .28);
+    border-radius: 20px;
+    box-shadow: 0 16px 46px rgba(0, 0, 0, .48), 0 0 22px rgba(193, 145, 200, .06);
+}
+
+.message-form-panel {
+    border-color: rgba(201, 171, 216, .3);
+    background: linear-gradient(145deg, rgba(38, 27, 47, .97), rgba(17, 13, 27, .98));
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .34), 0 0 28px rgba(193, 145, 200, .07);
+}
+
+.message-form-heading h2 { color: var(--romantic-cream); }
+.message-form-label { color: #ead5e2; }
+
+.message-form textarea {
+    border-color: rgba(201, 171, 216, .3);
+    background: rgba(8, 7, 20, .56);
+}
+
+.message-form textarea:focus {
+    border-color: rgba(245, 182, 210, .78);
+    box-shadow: 0 0 0 3px rgba(245, 182, 210, .12);
+}
+
+.message-form-submit {
+    border-color: rgba(245, 182, 210, .46);
+    background: linear-gradient(115deg, #c582b2, #8e72b2);
+    color: #fff7fb;
+    font-weight: 700;
+}
+
+.message-form-submit:not(:disabled):hover {
+    box-shadow: 0 8px 24px rgba(205, 129, 180, .22);
+}
+
+.photo-zoom-close,
+.surprise-toast {
+    border-color: rgba(245, 182, 210, .5);
+    box-shadow: 0 0 22px rgba(205, 129, 180, .16);
+}
+
+/* Keep the warm-gold finish for the closing page and its final scene. */
+#page-final .page-title,
+#page-final .glow-title,
+#page-final .message-form-heading h2 { color: var(--romantic-gold); }
+#page-final .shot { border-color: rgba(232, 186, 99, .3); box-shadow: 0 14px 38px rgba(0, 0, 0, .4), 0 0 18px rgba(232, 186, 99, .08); }
+#page-final .message-form-panel { border-color: rgba(232, 186, 99, .34); box-shadow: 0 18px 50px rgba(0, 0, 0, .34), 0 0 28px rgba(232, 186, 99, .09); }
+#page-final .message-form-label { color: #ead5a5; }
+#page-final .message-form textarea { border-color: rgba(232, 186, 99, .3); }
+#page-final .message-form textarea:focus { border-color: rgba(232, 186, 99, .82); box-shadow: 0 0 0 3px rgba(232, 186, 99, .12); }
+#page-final .message-form-submit { border-color: rgba(255, 239, 198, .55); background: linear-gradient(115deg, #e8ba63, #c99545); color: #241a2d; }
+#page-final .message-form-submit:not(:disabled):hover { box-shadow: 0 8px 24px rgba(232, 186, 99, .24); }
+#page-final .start-btn:not(.opt-red):not(.opt-blue) { border-color: rgba(232, 186, 99, .55); box-shadow: 0 0 18px rgba(232, 186, 99, .1); }
+#page-final .start-btn:not(.opt-red):not(.opt-blue):hover { border-color: rgba(232, 186, 99, .9); box-shadow: 0 8px 26px rgba(232, 186, 99, .18); }
+#page-final .start-btn:not(.opt-red):not(.opt-blue)::before { background: linear-gradient(90deg, transparent, rgba(232, 186, 99, .17), transparent); }
+#heartScene .heart-center { color: var(--romantic-gold); text-shadow: 0 0 14px rgba(232, 186, 99, .3); }
+#heartScene .last-wrap .start-btn { border-color: rgba(232, 186, 99, .55); box-shadow: 0 0 18px rgba(232, 186, 99, .1); }
+
+@media (max-width: 700px) {
+    .page { background: radial-gradient(ellipse at 50% 35%, #1a1020 0%, #0b0712 64%, #07050d 100%); }
+    .story-head { margin-bottom: 28px; }
+    .bio-box { border-radius: 16px; }
+    .shot { border-radius: 14px; }
+}

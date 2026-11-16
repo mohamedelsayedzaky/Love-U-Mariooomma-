@@ -12,6 +12,9 @@ function goTo(id) {
 
     if (!target) return;
 
+    // Warm the next page's photos while the current page remains visible.
+    preloadPageAssets(id);
+
     document.getElementById("intro").classList.add("hide");
 
     document.querySelectorAll(".page").forEach(p => {
@@ -83,9 +86,13 @@ function startLovePage() {
         () => {
             typeInto(
                 document.getElementById("loveLine2"),
-                "ممكن بمناسبة إني بحبك 🫶🏻",
+                "ممكن بمناسبة إني بحبك",
                 60,
-                () => setTimeout(() => showBlock("octBox"), 600)
+                () => {
+                    const line = document.getElementById("loveLine2");
+                    line.insertAdjacentHTML("beforeend", ' <span class="love-emoji" aria-label="قلب بين الأيدي">🫶🏻</span>');
+                    setTimeout(() => showBlock("octBox"), 600);
+                }
             );
         }
     );

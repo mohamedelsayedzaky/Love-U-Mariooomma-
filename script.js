@@ -45,11 +45,16 @@ const names = [
 
 function createFloatingNames() {
 
+    const isMobile = window.matchMedia("(max-width: 700px)").matches;
+    const positions = isMobile
+        ? [[7, 14], [70, 22], [4, 48], [72, 62], [8, 83], [58, 88]]
+        : [[12, 21], [76, 15], [79, 28], [5, 43], [72, 45], [29, 66], [4, 72], [84, 68], [69, 75], [16, 83], [52, 10]];
+
     /*
        عدد الكلمات
     */
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < positions.length; i++) {
 
         const name =
             document.createElement("div");
@@ -75,9 +80,9 @@ function createFloatingNames() {
            حجم مختلف لكل كلمة
         */
 
-        const size =
-            18 +
-            Math.random() * 32;
+        const size = isMobile
+            ? 16 + Math.random() * 4
+            : 23 + Math.random() * 6;
 
         name.style.fontSize =
             size + "px";
@@ -87,24 +92,18 @@ function createFloatingNames() {
            مكان الكلمة على الشاشة
         */
 
-        name.style.left =
-            Math.random() * 100 + "%";
-
-        name.style.top =
-            Math.random() * 100 + "%";
+        name.style.left = positions[i][0] + "%";
+        name.style.top = positions[i][1] + "%";
 
 
         /*
            نقطة الحركة الأولى
         */
 
-        const x1 =
-            -45 +
-            Math.random() * 90;
-
-        const y1 =
-            -35 +
-            Math.random() * 70;
+        const driftX = isMobile ? 4 : 6;
+        const driftY = isMobile ? 3 : 4;
+        const x1 = -driftX + Math.random() * driftX * 2;
+        const y1 = -driftY + Math.random() * driftY * 2;
 
 
         /*
@@ -114,13 +113,8 @@ function createFloatingNames() {
            عشان الحركة تبقى واضحة
         */
 
-        const x2 =
-            -45 +
-            Math.random() * 90;
-
-        const y2 =
-            -35 +
-            Math.random() * 70;
+        const x2 = -driftX + Math.random() * driftX * 2;
+        const y2 = -driftY + Math.random() * driftY * 2;
 
 
         name.style.setProperty(
@@ -148,9 +142,7 @@ function createFloatingNames() {
            دوران بسيط
         */
 
-        const rotation =
-            -18 +
-            Math.random() * 36;
+        const rotation = -9 + Math.random() * 18;
 
         name.style.setProperty(
             "--rotation",
@@ -165,8 +157,8 @@ function createFloatingNames() {
         */
 
         const duration =
-            8 +
-            Math.random() * 12;
+            6 +
+            Math.random() * 8;
 
         name.style.setProperty(
             "--duration",
@@ -350,11 +342,12 @@ let animationStarted =
 
 function resizeHeartCanvas() {
 
-    heartCanvas.width =
-        window.innerWidth;
-
-    heartCanvas.height =
-        window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    heartCanvas.width = Math.round(window.innerWidth * dpr);
+    heartCanvas.height = Math.round(window.innerHeight * dpr);
+    heartCanvas.style.width = `${window.innerWidth}px`;
+    heartCanvas.style.height = `${window.innerHeight}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
 }
 
@@ -419,9 +412,9 @@ function toScreen(x, y) {
 
             Math.min(
 
-                window.innerWidth / 45,
+            window.innerWidth / 65,
 
-                window.innerHeight / 35
+            window.innerHeight / 48
 
             )
 
@@ -508,7 +501,7 @@ function createParticle(
 
 function buildOutlineParticles() {
 
-    const nOutline = 160;
+    const nOutline = 110;
 
     const minGap = 30;
 
@@ -595,7 +588,7 @@ function buildOutlineParticles() {
 
 function buildFillParticles() {
 
-    const nFill = 130;
+    const nFill = 75;
 
     const minGap = 46;
 
@@ -829,7 +822,7 @@ function drawParticle(
         color;
 
 
-    ctx.shadowBlur = 18;
+    ctx.shadowBlur = 9;
 
 
     ctx.fillStyle =
@@ -992,6 +985,11 @@ function animateHeart(
     startTime
 ) {
 
+    if (!document.getElementById("heartScene").classList.contains("show")) {
+        animationStarted = false;
+        return;
+    }
+
     const elapsed =
         performance.now() -
         startTime;
@@ -1007,9 +1005,10 @@ function animateHeart(
 
         0,
 
-        heartCanvas.width,
 
-        heartCanvas.height
+        window.innerWidth,
+
+        window.innerHeight
 
     );
 
@@ -1071,13 +1070,8 @@ function animateHeart(
 
 function showHeart() {
 
-    if (animationStarted)
-        return;
-
-
-    animationStarted =
-        true;
-
+    if (animationStarted) return;
+    animationStarted = true;
 
     heartScene.classList.add(
         "show"
@@ -1135,6 +1129,16 @@ document.addEventListener("click", event => {
         return;
     }
     const shot = target.closest?.(".story-row .shot:not(.envelope-shot)");
+    const teaserShot = target.closest?.(".teaser-shot");
+    if (teaserShot) {
+        photoZoomTrigger = teaserShot;
+        photoZoomImage.src = teaserShot.currentSrc || teaserShot.src;
+        photoZoomImage.alt = teaserShot.alt || "صورة مكبرة";
+        photoZoom.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        photoZoom.querySelector(".photo-zoom-close").focus();
+        return;
+    }
     if (shot) {
         photoZoomTrigger = shot;
         photoZoomImage.src = shot.currentSrc || shot.src;
@@ -1149,6 +1153,11 @@ document.addEventListener("click", event => {
 document.addEventListener("keydown", event => {
     if (event.key === "Escape" && photoZoom.classList.contains("is-open")) closePhotoZoom();
     const sticker = event.target.closest?.(".surprise-sticker");
+    const teaser = event.target.closest?.(".teaser-shot");
+    if (teaser && (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+        teaser.click();
+    }
     if (sticker && (event.key === "Enter" || event.key === " ")) {
         event.preventDefault();
         showStickerSurprise(sticker);

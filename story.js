@@ -34,7 +34,20 @@ function loadAsset(img, base, exts, label, w, h, onDone) {
         }
     };
 
-    img.src = `${base}.${exts[0]}`;
+    const assetName = base.split("/").pop();
+    const candidates = [`images/thumbs/${assetName}.webp`, `images/thumbs/${assetName}.jpg`, ...exts.map(ext => `${base}.${ext}`)];
+    let candidateIndex = 0;
+    const tryNext = () => {
+        if (candidateIndex < candidates.length) img.src = candidates[candidateIndex++];
+        else {
+            img.onerror = null;
+            img.src = placeholder(label, w, h);
+            if (onDone) onDone();
+        }
+    };
+    img.onload = () => { img.onerror = null; if (onDone) onDone(); };
+    img.onerror = tryNext;
+    tryNext();
 }
 
 
@@ -240,12 +253,12 @@ function initStory(pageId) {
 
     // الصور
     page.querySelectorAll("img[data-n]").forEach(img => {
-        loadAsset(img, `images/${img.dataset.n}`, IMG_EXTS, img.dataset.n, 300, 400, schedule);
+        loadImageAsset(img, `images/${img.dataset.n}`, IMG_EXTS, img.dataset.n, 300, 400, schedule);
     });
 
     // الستيكرز
     page.querySelectorAll("img[data-s]").forEach(img => {
-        loadAsset(img, `images/S${img.dataset.s}`, STICKER_EXTS, "S" + img.dataset.s, 200, 200, schedule);
+        loadImageAsset(img, `images/S${img.dataset.s}`, STICKER_EXTS, "S" + img.dataset.s, 200, 200, schedule);
     });
 
     page.addEventListener("scroll", () => update(false), { passive: true });
