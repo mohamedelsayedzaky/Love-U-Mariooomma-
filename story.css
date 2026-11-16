@@ -536,10 +536,6 @@
     margin-bottom: clamp(60px, 10vh, 100px);
 }
 
-#page-final .message-form-sticker {
-    max-width: 28vw;
-}
-
 #page-final .shot {
     max-height: 80vh;
 }
@@ -971,4 +967,11 @@
 #heartScene .heart-center {
     color: rgb(255, 250, 245);
     text-shadow: 0 0 8px rgba(255, 255, 255, .35), 0 0 20px rgba(80, 150, 255, .45), 0 0 45px rgba(30, 144, 255, .25);
+}
+
+/* Keep the finale sticker at its original mobile size and the video at its original frame style. */
+#page-video .video-box video {
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
 }

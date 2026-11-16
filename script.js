@@ -405,6 +405,8 @@ function heartXY(t) {
 
 function toScreen(x, y) {
 
+    const mobileHeart = window.innerWidth <= 700;
+
     const scale =
         Math.min(
 
@@ -412,9 +414,9 @@ function toScreen(x, y) {
 
             Math.min(
 
-            window.innerWidth / 65,
+            window.innerWidth / (mobileHeart ? 45 : 65),
 
-            window.innerHeight / 48
+            window.innerHeight / (mobileHeart ? 35 : 48)
 
             )
 
@@ -501,7 +503,7 @@ function createParticle(
 
 function buildOutlineParticles() {
 
-    const nOutline = 110;
+    const nOutline = window.innerWidth <= 700 ? 160 : 110;
 
     const minGap = 30;
 
@@ -588,7 +590,7 @@ function buildOutlineParticles() {
 
 function buildFillParticles() {
 
-    const nFill = 75;
+    const nFill = window.innerWidth <= 700 ? 130 : 75;
 
     const minGap = 46;
 
@@ -822,7 +824,7 @@ function drawParticle(
         color;
 
 
-    ctx.shadowBlur = 9;
+    ctx.shadowBlur = window.innerWidth <= 700 ? 18 : 9;
 
 
     ctx.fillStyle =

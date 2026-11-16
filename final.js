@@ -61,8 +61,6 @@ function startVideoPage() {
 
     const video = document.getElementById("flashVideo");
 
-    video.load();
-
     let revealed = false;
 
     function reveal() {
@@ -74,7 +72,7 @@ function startVideoPage() {
     video.addEventListener("ended", reveal);
     video.addEventListener("error", reveal);
 
-    // Keep the video under the visitor's control; mobile autoplay can stall navigation.
+    video.play().catch(() => { });
 
     // لو الفيديو ماشتغلش لأي سبب، الاستبيان يظهر برضو
     setTimeout(reveal, 40000);
