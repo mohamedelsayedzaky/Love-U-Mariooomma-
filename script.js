@@ -964,9 +964,9 @@ function drawCenterText(frame) {
 
         "Love You",
 
-        heartCanvas.width / 2,
+        window.innerWidth / 2,
 
-        heartCanvas.height / 2
+        window.innerHeight / 2
 
     );
 

@@ -93,6 +93,8 @@ function disableButtons(boxId) {
 
 function answerStreak() {
 
+    loveMusic.load();
+
     disableButtons("streakBox");
 
     showBlock("img17Box");
