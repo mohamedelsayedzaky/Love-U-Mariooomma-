@@ -47,7 +47,7 @@ function createFloatingNames() {
 
     const isMobile = window.matchMedia("(max-width: 700px)").matches;
     const positions = isMobile
-        ? [[7, 14], [70, 22], [4, 48], [72, 62], [8, 83], [58, 88]]
+        ? [[8, 14], [66, 19], [24, 35], [4, 52], [72, 48], [36, 67], [8, 84], [66, 86]]
         : [[12, 21], [76, 15], [79, 28], [5, 43], [72, 45], [29, 66], [4, 72], [84, 68], [69, 75], [16, 83], [52, 10]];
 
     /*
@@ -81,7 +81,7 @@ function createFloatingNames() {
         */
 
         const size = isMobile
-            ? 16 + Math.random() * 4
+            ? 17 + Math.random() * 4
             : 23 + Math.random() * 6;
 
         name.style.fontSize =
@@ -100,8 +100,8 @@ function createFloatingNames() {
            نقطة الحركة الأولى
         */
 
-        const driftX = isMobile ? 4 : 6;
-        const driftY = isMobile ? 3 : 4;
+        const driftX = isMobile ? 5.5 : 6;
+        const driftY = isMobile ? 4.5 : 4;
         const x1 = -driftX + Math.random() * driftX * 2;
         const y1 = -driftY + Math.random() * driftY * 2;
 

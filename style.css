@@ -902,3 +902,11 @@ body {
     .intro-message { font-size: 17px; }
     .intro-content > .hint-text { margin-bottom: 25px; font-size: 12px; }
 }
+
+@media (max-width: 700px) {
+    .floating-name {
+        font-size: clamp(16px, 4.8vw, 23px) !important;
+        color: rgba(245, 184, 212, .23);
+        text-shadow: 0 0 14px rgba(245, 184, 212, .2), 0 0 26px rgba(174, 92, 128, .12);
+    }
+}
