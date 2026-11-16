@@ -945,3 +945,30 @@
     .bio-box { border-radius: 16px; }
     .shot { border-radius: 14px; }
 }
+
+/* Keep accidental taps from zooming the date controls or tinting stickers on Android. */
+#dateRow,
+#dateRow .step-btn { touch-action: manipulation; }
+#dateRow .step-btn {
+    width: 48px;
+    height: 48px;
+    -webkit-tap-highlight-color: transparent;
+}
+.surprise-sticker {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Restore the original neutral photo frames on story pages. */
+.page:not(#page-final) .shot {
+    border-color: rgba(255, 255, 255, .12);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
+}
+
+/* Restore the blue glow of the original closing heart scene. */
+#heartScene .heart-center {
+    color: rgb(255, 250, 245);
+    text-shadow: 0 0 8px rgba(255, 255, 255, .35), 0 0 20px rgba(80, 150, 255, .45), 0 0 45px rgba(30, 144, 255, .25);
+}
