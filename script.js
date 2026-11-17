@@ -45,16 +45,11 @@ const names = [
 
 function createFloatingNames() {
 
-    const isMobile = window.matchMedia("(max-width: 700px)").matches;
-    const positions = isMobile
-        ? [[8, 14], [66, 19], [24, 35], [4, 52], [72, 48], [36, 67], [8, 84], [66, 86]]
-        : [[12, 21], [76, 15], [79, 28], [5, 43], [72, 45], [29, 66], [4, 72], [84, 68], [69, 75], [16, 83], [52, 10]];
-
     /*
        عدد الكلمات
     */
 
-    for (let i = 0; i < positions.length; i++) {
+    for (let i = 0; i < 30; i++) {
 
         const name =
             document.createElement("div");
@@ -80,9 +75,9 @@ function createFloatingNames() {
            حجم مختلف لكل كلمة
         */
 
-        const size = isMobile
-            ? 17 + Math.random() * 4
-            : 23 + Math.random() * 6;
+        const size =
+            18 +
+            Math.random() * 32;
 
         name.style.fontSize =
             size + "px";
@@ -92,18 +87,24 @@ function createFloatingNames() {
            مكان الكلمة على الشاشة
         */
 
-        name.style.left = positions[i][0] + "%";
-        name.style.top = positions[i][1] + "%";
+        name.style.left =
+            Math.random() * 100 + "%";
+
+        name.style.top =
+            Math.random() * 100 + "%";
 
 
         /*
            نقطة الحركة الأولى
         */
 
-        const driftX = isMobile ? 5.5 : 6;
-        const driftY = isMobile ? 4.5 : 4;
-        const x1 = -driftX + Math.random() * driftX * 2;
-        const y1 = -driftY + Math.random() * driftY * 2;
+        const x1 =
+            -45 +
+            Math.random() * 90;
+
+        const y1 =
+            -35 +
+            Math.random() * 70;
 
 
         /*
@@ -113,8 +114,13 @@ function createFloatingNames() {
            عشان الحركة تبقى واضحة
         */
 
-        const x2 = -driftX + Math.random() * driftX * 2;
-        const y2 = -driftY + Math.random() * driftY * 2;
+        const x2 =
+            -45 +
+            Math.random() * 90;
+
+        const y2 =
+            -35 +
+            Math.random() * 70;
 
 
         name.style.setProperty(
@@ -142,7 +148,9 @@ function createFloatingNames() {
            دوران بسيط
         */
 
-        const rotation = -9 + Math.random() * 18;
+        const rotation =
+            -18 +
+            Math.random() * 36;
 
         name.style.setProperty(
             "--rotation",
@@ -157,8 +165,8 @@ function createFloatingNames() {
         */
 
         const duration =
-            6 +
-            Math.random() * 8;
+            8 +
+            Math.random() * 12;
 
         name.style.setProperty(
             "--duration",
