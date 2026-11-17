@@ -540,6 +540,10 @@
     max-height: 80vh;
 }
 
+#page-final .message-form-sticker {
+    max-width: 28vw;
+}
+
 .envelope-shot {
     cursor: pointer;
     animation: envPulse 2.2s ease-in-out infinite;
